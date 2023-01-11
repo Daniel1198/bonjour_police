@@ -1,0 +1,22 @@
+select {
+    padding-block: 14px;
+}
+
+label {
+    font-weight: bold;
+}
+
+.file-hidden {
+    width: 0px;
+    visibility: hidden;
+    position: absolute;
+	z-index: -1;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #7dc4ffc7;
+}

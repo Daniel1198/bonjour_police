@@ -1,0 +1,51 @@
+.navbar .navbar-brand-wrapper {
+    background: #ffffff;
+    transition: width 0.25s ease, background 0.25s ease;
+    -webkit-transition: width 0.25s ease, background 0.25s ease;
+    -moz-transition: width 0.25s ease, background 0.25s ease;
+    -ms-transition: width 0.25s ease, background 0.25s ease;
+    width: 255px;
+    height: 64px;
+  }
+  
+  .sidebar-dark .navbar .navbar-brand-wrapper {
+    background: #ffffff;
+  }
+  
+  .navbar .navbar-brand-wrapper .navbar-brand {
+    color: #27367f;
+    font-size: 1.5rem;
+    margin-right: 0;
+    padding: .25rem 1rem;
+  }
+  
+  .navbar .navbar-brand-wrapper .navbar-brand.brand-logo-mini {
+    display: none;
+  }
+  
+  .navbar .navbar-brand-wrapper .navbar-brand:active, .navbar .navbar-brand-wrapper .navbar-brand:focus, .navbar .navbar-brand-wrapper .navbar-brand:hover {
+    color: #1b2658;
+  }
+  
+  .navbar .navbar-brand-wrapper .navbar-brand img {
+    width: calc(255px - 130px);
+    max-width: 100%;
+    height: 34px;
+    margin: auto;
+    vertical-align: middle;
+  }
+  
+  .navbar .navbar-brand-wrapper .brand-logo-mini {
+    padding-left: 0;
+    text-align: center;
+  }
+  
+  .navbar .navbar-brand-wrapper .brand-logo-mini img {
+    width: calc(70px - 30px);
+    max-width: 100%;
+    margin: auto;
+  }
+  
+  .navbar .navbar-brand-wrapper .navbar-toggler {
+    padding: 1rem 2rem;
+  }

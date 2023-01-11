@@ -1,0 +1,85 @@
+<div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0 py-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-center py-5 px-4 px-sm-5 w3-animate-left">
+              <div class="brand-logo">
+                <img src="../../assets/images/logo-connect-bp.png" alt="logo" />
+              </div>
+              <h4 style="color: #1c75bc">
+                LA GESTION NUMERIQUE DES FICHES DE POLICE
+              </h4>
+              <h4 class="font-weight-light text-warning">
+                Connectez-vous pour continuer.
+              </h4>
+              <p *ngIf="afficheErreur == true" style="color: red">
+                Le login ou le mot de passe que vous avez saisi est incorrect.
+                Veuillez réessayer (vérifiez le verrouillage des majuscules).
+              </p>
+              <form
+                class="pt-3"
+                [formGroup]="loginFormGroup"
+                (ngSubmit)="connexion(loginFormGroup.value)"
+              >
+                <div class="form-group">
+                  <input
+                    type="email"
+                    class="form-control form-control-lg"
+                    id="exampleInputEmail1"
+                    placeholder="Username"
+                    formControlName="userName"
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    type="password"
+                    class="form-control form-control-lg"
+                    id="exampleInputPassword1"
+                    placeholder="Password"
+                    formControlName="password"
+                  />
+                  <span
+                    toggle="#password-field"
+                    class="fa fa-fw fa-eye field-icon toggle-password"
+                  ></span>
+                </div>
+                <div class="mt-3">
+                  <button
+                    type="submit"
+                    class="btn btn-block btn-warning btn-lg font-weight-medium auth-form-btn text-white"
+                    [disabled]="!loginFormGroup.valid"
+                  >
+                    S'IDENTIFIER
+                  </button>
+                </div>
+                <div
+                  class="my-4 d-flex justify-content-end align-items-center"
+                >
+                  <a href="#" class="auth-link text-facebook"
+                    >Mot de passe oublié ?</a
+                  >
+                </div>
+                <div class="mb-2">
+                  <!--button
+                    type="button"
+                    class="btn btn-block btn-facebook auth-form-btn"
+                  >
+                    <i class="typcn typcn-social-facebook-circular mr-2"></i
+                    >Connect using facebook
+                  </button-->
+                </div>
+                <div class="text-center mt-4 font-weight-light">
+                  Je n'ai pas de compte ?
+                  <a routerLink="/auth/register" class="text-warning">Créer</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  

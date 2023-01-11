@@ -1,0 +1,134 @@
+<div class="mb-3">
+    <div class="header bg-light py-2 px-4 d-flex justify-content-between align-items-center rounded">
+      <div>
+        <h4 class="mb-0 text-info"><b>{{ "Fiche individuelle de police" | uppercase }}</b></h4>
+      </div>
+  
+      <div>
+        <button class="btn btn-danger btn-sm mat-elevation-z2" routerLink="/admin/hebergement/fiche-police">
+          <span class="typcn typcn-times"></span>
+          Fermer
+        </button>
+      </div>
+    </div>
+  
+    <div class="mt-3 border rounded px-5 py-3">
+      <form>
+        <div class="d-flex align-items-center">
+          <div class="rounded-circle border border-danger" style="width: 20px; height: 20px;"></div>
+          <div class="text-danger ml-3">
+            INFORMATIONS CONCERNANT LE CLIENT (CUSTOMER INFORMATIONS)
+          </div>
+        </div>
+  
+        <div class="row p-4" style="border-left: 1px solid #2b80ff; margin-left: 10px;">
+          <div class="col-6 form-group">
+            <label for="name"><strong>Nom (Name) <span class="text-danger">*</span></strong></label>
+            <input type="text" id="name" class="form-control" placeholder="Ex : John">
+          </div>
+    
+          <div class="col-6 form-group">
+            <label for="firstname"><strong>Prénom(s) (First name) <span class="text-danger">*</span></strong></label>
+            <input type="text" id="firstname" class="form-control" placeholder="Ex : Doe">
+          </div>
+    
+          <div class="col-6 form-group">
+            <label for="birthdate"><strong>Date de naissance (Birthdate) <span class="text-danger">*</span></strong></label>
+            <input type="date" id="birthdate" class="form-control">
+          </div>
+    
+          <div class="col-6 form-group">
+            <label for="birthplace"><strong>Lieu de naissance (Place of birth) <span class="text-danger">*</span></strong></label>
+            <input type="text" id="birthplace" class="form-control" placeholder="Ex : Abidjan">
+          </div>
+  
+          <div class="col-6 form-group">
+            <label for="address"><strong>Domicile habituel (Permanent address) <span class="text-danger">*</span></strong></label>
+            <input type="text" id="address" class="form-control">
+          </div>
+  
+          <div class="col-6 form-group">
+            <label for="nationality"><strong>Nationalité (Nationality) <span class="text-danger">*</span></strong></label>
+            <input type="text" id="nationality" class="form-control" placeholder="Ivoirienne">
+          </div>
+  
+          <div class="col-6 form-group">
+            <label for="phone"><strong>Téléphone (Phone number) <span class="text-danger">*</span></strong></label>
+            <input type="tel" id="phone" class="form-control" placeholder="+225 07 07 07 07 07">
+          </div>
+  
+          <div class="col-6 form-group">
+            <label for="email"><strong>Adresse électronique (E-mail address) <span class="text-danger">*</span></strong></label>
+            <input type="email" id="email" class="form-control" placeholder="Ex : name@domain">
+          </div>
+  
+          <div class="col-6 form-group">
+            <label for="arrival"><strong>Date d'arrivée au sein de l'établissement (Date of arrival) <span class="text-danger">*</span></strong></label>
+            <input type="date" id="arrival" class="form-control">
+          </div>
+  
+          <div class="col-6 form-group">
+            <label for="departure"><strong>Date de départ prévue (Intended date of departure) <span class="text-danger">*</span></strong></label>
+            <input type="date" id="departure" class="form-control">
+          </div>
+        </div>
+  
+        <div class="d-flex align-items-center">
+          <div class="rounded-circle border border-danger" style="width: 20px; height: 20px;"></div>
+          <div class="text-danger ml-3">
+            {{ 'Informations concernant l\'enfant (Informations about accompanying children under 15)' | uppercase }}
+          </div>
+        </div>
+  
+        <div class="row p-4" style="border-left: 1px solid #2b80ff; margin-left: 10px;">
+          <div class="mb-4 text-muted">
+            <i><strong><u>NB :</u></strong> Seuls les enfants agés de moins de 15 ans peuvent figurer sur la fiche d'un adulte qui les accompagne.</i>
+          </div>
+          <div class="col-6 form-group">
+            <label for="name"><strong>Nom (Name)</strong></label>
+            <input type="text" id="name" class="form-control" placeholder="Ex : John">
+          </div>
+    
+          <div class="col-6 form-group">
+            <label for="firstname"><strong>Prénom(s) (First name)</strong></label>
+            <input type="text" id="firstname" class="form-control" placeholder="Ex : Doe">
+          </div>
+    
+          <div class="col-6 form-group">
+            <label for="birthdate"><strong>Date de naissance (Birthdate)</strong></label>
+            <input type="date" id="birthdate" class="form-control">
+          </div>
+    
+          <div class="col-6 form-group">
+            <label for="birthplace"><strong>Lieu de naissance (Place of birth)</strong></label>
+            <input type="text" id="birthplace" class="form-control" placeholder="Ex : Abidjan">
+          </div>
+  
+          <div class="col-6 form-group">
+            <label for="address"><strong>Domicile habituel (Permanent address)</strong></label>
+            <input type="text" id="address" class="form-control">
+          </div>
+  
+          <div class="col-6 form-group">
+            <label for="nationality"><strong>Nationalité (Nationality)</strong></label>
+            <input type="text" id="nationality" class="form-control" placeholder="Ivoirienne">
+          </div>
+        </div>
+  
+        <div class="d-flex align-items-center">
+          <div class="rounded-circle border border-danger" style="width: 20px; height: 20px;"></div>
+          <div class="m-auto text-center w-75">
+            <button type="button" class="btn btn-sm btn-danger w-25 mat-elevation-z2" routerLink="/admin/hebergement/fiche-police">
+              <span class="typcn typcn-times"></span>
+              Fermer
+            </button>
+  
+            <button type="submit" class="btn btn-sm btn-success ml-3 w-25 mat-elevation-z2">
+              <span class="typcn typcn-database"></span>
+              Enregistrer
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
