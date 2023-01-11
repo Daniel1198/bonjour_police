@@ -29,9 +29,9 @@
     
           <div class="col-6 form-group">
             <label for="city"><strong>Ville <span class="text-danger">*</span></strong></label>
-            <select id="city" class="form-control" style="padding-block: 14px;">
-                <option value="" class="disabled">-- Choix de la ville ---</option>
-            </select>
+            <ng-select placeholder="-- Choisir la ville ---" notFoundText="Aucun élément trouvé">
+                <!-- <ng-option>-- Choisissez la ville ---</ng-option> -->
+            </ng-select>
           </div>
 
           <div class="col-6 form-group">

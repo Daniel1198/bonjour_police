@@ -24,6 +24,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "./node_modules/@ng-select/ng-select/scss/material.theme.scss",
               "src/styles.css",
               "src/assets/css/w3.css"
             ],

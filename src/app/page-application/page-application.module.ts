@@ -11,6 +11,9 @@ import { CommissariatComponent } from './administration/commissariat/commissaria
 import { VillesComponent } from './administration/villes/villes.component';
 import { HebergementsComponent } from './administration/hebergements/hebergements.component';
 import { AddCommissariatComponent } from './administration/add-commissariat/add-commissariat.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule } from '@angular/forms';
+import { ProfilRechercheComponent } from './commissariat/profil-recherche/profil-recherche.component';
 
 
 @NgModule({
@@ -22,12 +25,15 @@ import { AddCommissariatComponent } from './administration/add-commissariat/add-
     CommissariatComponent,
     VillesComponent,
     HebergementsComponent,
-    AddCommissariatComponent
+    AddCommissariatComponent,
+    ProfilRechercheComponent
   ],
   imports: [
     CommonModule,
     PageApplicationRoutingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgSelectModule,
+    FormsModule
   ]
 })
 export class PageApplicationModule { }

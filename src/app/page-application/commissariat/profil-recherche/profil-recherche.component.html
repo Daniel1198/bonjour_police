@@ -1,0 +1,194 @@
+<div>
+    <div class="header bg-light py-2 px-4 d-flex justify-content-between align-items-center rounded">
+        <div>
+            <h4 class="mb-0 text-info"><b>{{ "Commissariat de police" | uppercase }}</b></h4>
+            <p class="m-0">Profil recherché</p>
+        </div>
+
+        <div>
+            <button class="btn btn-warning text-white btn-sm ml-3 mat-elevation-z2" *ngIf="showAddProfileScreen"
+                (click)="changeScreen()">
+                <span class="typcn typcn-zoom"></span>
+                Rechercher
+            </button>
+
+            <button class="btn btn-danger btn-sm ml-3 mat-elevation-z2" *ngIf="!showAddProfileScreen"
+                (click)="changeScreen()">
+                <span class="typcn typcn-bell"></span>
+                Alerte profil
+            </button>
+        </div>
+    </div>
+
+    <div class="p-2 border mt-3 rounded w3-animate-left" *ngIf="!showAddProfileScreen">
+        <div class="border-bottom text-danger p-2 mb-3">
+            <b>Critères de recherche</b>
+        </div>
+
+        <div class="row px-5">
+            
+            <div class="col-3 px-2 form-group">
+                <label for="age" style="margin-top: 2px;" class="form-label font-weight-bold">Âge</label>
+                <input type="number" id="age" class="form-control">
+            </div>
+
+            <div class="col-3 px-2 form-group">
+                <label for="sex" style="margin-top: 2px;" class="form-label font-weight-bold">Genre</label>
+                <select id="sex" class="form-control" style="padding-block: 14px;">
+                    <option value="" class="disabled">-- Sélectionner le genre ---</option>
+                    <option value="M">Masculin</option>
+                    <option value="F">Féminin</option>
+                </select>
+            </div>
+
+            <div class="col-4 px-2 form-group">
+                <label for="nationality" style="margin-top: 2px;" class="form-label font-weight-bold">Nationalité</label>
+                <select id="nationality" class="form-control" style="padding-block: 14px;">
+                    <option value="" class="disabled">-- Sélectionner la nationalité ---</option>
+                </select>
+            </div>
+
+            <div class="col-2 px-2 form-group d-flex align-items-end">
+                <button class="btn btn-info w-100" style="margin-bottom: 1px;">
+                    Rechercher
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-2 border mt-3 rounded w3-animate-right" *ngIf="showAddProfileScreen">
+        <div class="border-bottom text-warning p-2 mb-3">
+            <b>Nouvelle alerte</b>
+        </div>
+
+        <div class="px-5 row">
+            <div class="col-6 form-group">
+                <label for="name" class="form-label font-weight-bold">
+                    Nom <span class="text-danger">*</span>
+                </label>
+                <input type="text" id="name" class="form-control">
+            </div>
+
+            <div class="col-6 form-group">
+                <label for="firstname" class="form-label font-weight-bold">
+                    Prénom(s) <span class="text-danger">*</span>
+                </label>
+                <input type="text" id="firstname" class="form-control">
+            </div>
+
+            <div class="col-4 form-group">
+                <label for="sex" class="form-label font-weight-bold">
+                    Genre <span class="text-danger">*</span>
+                </label>
+                <select id="sex" class="form-control" style="padding-block: 14px;">
+                    <option value="" class="disabled">-- Sélectionner le genre ---</option>
+                    <option value="M">Masculin</option>
+                    <option value="F">Féminin</option>
+                </select>
+            </div>
+
+            <div class="col-4 form-group">
+                <label for="nationality" class="form-label font-weight-bold">
+                    Nationalité <span class="text-danger">*</span>
+                </label>
+                <input type="text" id="nationality" class="form-control">
+            </div>
+
+            <div class="form-group col-2">
+                <label for="minage" class="form-label font-weight-bold">
+                    De <span class="text-danger">*</span>
+                </label>
+                <div class="input-group">
+                    <select id="minage" class="form-control" style="padding-block: 14px;">
+                        <option value="" class="disabled">-- Âge minimal ---</option>
+                        <option *ngFor="let n of [].constructor(100); let i = index;" [value]="i">{{ i }}</option>
+                    </select>
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">ans</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-2">
+                <label for="maxage" class="form-label font-weight-bold">
+                    A <span class="text-danger">*</span>
+                </label>
+                <div class="input-group">
+                    <select id="maxage" class="form-control" style="padding-block: 14px;">
+                        <option value="" class="disabled">-- Âge maximal ---</option>
+                        <option *ngFor="let n of [].constructor(100); let i = index;" [value]="i">{{ i }}</option>
+                    </select>
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">ans</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 mb-3 text-right">
+                <button class="btn btn-success">
+                    Enregistrer
+                </button>
+            </div>
+        </div>
+        </div>
+
+        <div class="p-2 bg-white mt-3 rounded mat-elevation-z3 mb-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nom.</th>
+                        <th>Prénom(s).</th>
+                        <th>Âge.</th>
+                        <th>Nationalité.</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let n of data | paginate
+          : {
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count
+            };
+            let i = index">
+                        <td>
+                            <div style="width: 50px; height: 50px;" class="rounded-circle bg-light">
+
+                            </div>
+                        </td>
+                        <td>Koffi</td>
+                        <td>Kouamé Ulrich</td>
+                        <td>19 ans</td>
+                        <td>Ivoirienne</td>
+                        <td>
+                            <button class="btn btn-outline-info btn-sm">
+                                <span class="typcn typcn-edit"></span>
+                            </button>
+                            <button class="btn btn-outline-danger btn-sm ml-3">
+                                <span class="typcn typcn-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="px-3 mt-2 d-flex justify-content-end align-items-center" style="font-size: small;"
+                *ngIf="data.length > 0">
+                <p>Total : [ {{ data.length }} ]</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <div class="d-flex mr-3">
+                    Enregistrements par page :&nbsp;&nbsp;
+                    <select id="items-per-page" #value class="mr-3 mb-3" (change)="changeSize(value.value)">
+                        <option *ngFor="let size of tableSizes" [value]="size">{{ size }}</option>
+                    </select>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <pagination-controls previousLabel="Précédent" nextLabel="Suivant"
+                        (pageChange)="onTableDataChange($event)">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
