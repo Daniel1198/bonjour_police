@@ -13,12 +13,14 @@
               <h4 class="font-weight-light text-warning">
                 Connectez-vous pour continuer.
               </h4>
+              <loader *ngIf="isLoadingResults"></loader>
               <p *ngIf="afficheErreur == true" style="color: red">
                 Le login ou le mot de passe que vous avez saisi est incorrect.
                 Veuillez réessayer (vérifiez le verrouillage des majuscules).
               </p>
+              
               <form
-                class="pt-3"
+                class="mt-2"
                 [formGroup]="loginFormGroup"
                 (ngSubmit)="connexion(loginFormGroup.value)"
               >

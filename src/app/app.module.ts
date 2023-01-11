@@ -10,6 +10,7 @@ import { FooterBarComponent } from './tpl/footer-bar/footer-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { LoaderComponent } from './tpl/loader/loader.component';
 @NgModule({
   declarations: [
     AppComponent,

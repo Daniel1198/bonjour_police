@@ -12,9 +12,12 @@ export class AppComponent {
 
 
   constructor(
-    private router: Router,
     public authService: AuthService
   ) {}
+
+  onLogout() {
+    this.authService.logout();
+  }
   
   
 }
