@@ -22,6 +22,8 @@
     "@angular/router": "^14.2.0",
     "@auth0/angular-jwt": "^5.1.1",
     "@ng-select/ng-select": "^9.1.0",
+    "highcharts": "^10.3.2",
+    "highcharts-angular": "^3.0.0",
     "ngx-pagination": "^6.0.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

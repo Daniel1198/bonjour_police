@@ -14,6 +14,7 @@ import { AddCommissariatComponent } from './administration/add-commissariat/add-
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { ProfilRechercheComponent } from './commissariat/profil-recherche/profil-recherche.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ProfilRechercheComponent } from './commissariat/profil-recherche/profil
     PageApplicationRoutingModule,
     NgxPaginationModule,
     NgSelectModule,
-    FormsModule
+    FormsModule,
+    HighchartsChartModule
   ]
 })
 export class PageApplicationModule { }
