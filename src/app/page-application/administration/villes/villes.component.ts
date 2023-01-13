@@ -14,6 +14,8 @@ export class VillesComponent implements OnInit {
 
   data: any[] = [].constructor(7);
 
+  showAddCity: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -32,5 +34,9 @@ export class VillesComponent implements OnInit {
     this.tableSize = event.target.value;
     this.page = 1;
     this.data;
+  }
+
+  changeScreen() {
+    this.showAddCity = !this.showAddCity;
   }
 }

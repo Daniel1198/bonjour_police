@@ -17,7 +17,6 @@ import { ProfilRechercheComponent } from './commissariat/profil-recherche/profil
 import { HighchartsChartModule } from 'highcharts-angular';
 import { DashboardCommissariatComponent } from './dashboard-commissariat/dashboard-commissariat.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { AddVilleComponent } from './administration/add-ville/add-ville.component';
 
 
 @NgModule({
@@ -32,8 +31,7 @@ import { AddVilleComponent } from './administration/add-ville/add-ville.componen
     AddCommissariatComponent,
     ProfilRechercheComponent,
     DashboardCommissariatComponent,
-    ResetPasswordComponent,
-    AddVilleComponent
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,

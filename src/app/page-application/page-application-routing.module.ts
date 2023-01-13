@@ -28,7 +28,6 @@ const routes: Routes = [
   { path: 'administration/commissariats', component: CommissariatComponent },
   { path: 'administration/add-commissariat', component: AddCommissariatComponent },
   { path: 'administration/villes', component: VillesComponent },
-  { path: 'administration/add-ville', component: VillesComponent },
   { path: 'administration/hebergements', component: HebergementsComponent },
 
 ];

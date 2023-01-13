@@ -6,14 +6,22 @@
       </div>
   
       <div>
-        <button class="btn btn-info btn-sm mat-elevation-z2" routerLink="/admin/administration/add-commissariat">
+        <button *ngIf="!showAddCity" class="btn btn-info btn-sm mat-elevation-z2" (click)="changeScreen()">
           <span class="typcn typcn-plus"></span>
           Nouveau
+        </button>
+        <button *ngIf="showAddCity" class="btn btn-info btn-sm mat-elevation-z2" (click)="changeScreen()">
+          <span class="typcn typcn-zoom"></span>
+          Rechercher
+        </button>
+        <button class="btn btn-success btn-sm ml-3 mat-elevation-z2">
+          <span class="typcn typcn-document-text"></span>
+          Importer
         </button>
       </div>
     </div>
   
-    <div class="p-2 border mt-3 rounded">
+    <div class="p-2 border mt-3 rounded w3-animate-right" *ngIf="!showAddCity">
       <div class="border-bottom text-danger p-2 mb-3">
         <b>Critères de recherche</b>
       </div>
@@ -30,17 +38,31 @@
         </div>
       </div>
     </div>
+
+    <div class="p-2 border mt-3 rounded w3-animate-left" *ngIf="showAddCity">
+      <div class="border-bottom text-danger p-2 mb-3">
+        <b>Nouvelle ville</b>
+      </div>
+    
+      <div class="row px-5">
+        <div class="col-9 px-2 form-group">
+          <input type="text" class="form-control" placeholder="Intitulé...">
+        </div>
+    
+        <div class="col-3 px-2 form-group d-flex align-items-end">
+          <button class="btn btn-success w-100" style="margin-bottom: 1px;">
+            Ajouter
+          </button>
+        </div>
+      </div>
+    </div>
   
     <div class="p-2 bg-white mt-3 rounded mat-elevation-z3 mb-3">
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>ID.</th>
             <th>Ville.</th>
-            <th>Désignation du commissariat.</th>
-            <th>Adresse.</th>
-            <th>Tel.</th>
-            <th>Cel.</th>
-            <th>Commissaire.</th>
             <th></th>
           </tr>
         </thead>
@@ -53,13 +75,9 @@
               totalItems: count
             };
             let i = index">
-            <td>Koffi</td>
-            <td>Kouamé Ulrich</td>
-            <td>07 65 86 87 89</td>
-            <td>2023/01/01</td>
-            <td>2023/01/10</td>
-            <td>Ivoirienne</td>
-            <td>
+            <td class="py-1">{{ i + 1 }}</td>
+            <td>Abengourou</td>
+            <td align="right" class="py-1">
               <button class="btn btn-outline-info btn-sm">
                 <span class="typcn typcn-edit"></span>
               </button>
