@@ -15,6 +15,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { ProfilRechercheComponent } from './commissariat/profil-recherche/profil-recherche.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { DashboardCommissariatComponent } from './dashboard-commissariat/dashboard-commissariat.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AddVilleComponent } from './administration/add-ville/add-ville.component';
 
 
 @NgModule({
@@ -27,7 +30,10 @@ import { HighchartsChartModule } from 'highcharts-angular';
     VillesComponent,
     HebergementsComponent,
     AddCommissariatComponent,
-    ProfilRechercheComponent
+    ProfilRechercheComponent,
+    DashboardCommissariatComponent,
+    ResetPasswordComponent,
+    AddVilleComponent
   ],
   imports: [
     CommonModule,
