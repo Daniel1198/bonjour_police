@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FichePoliceService } from 'src/app/services/fiche-police/fiche-police.service';
 
 @Component({
   selector: 'app-fiche-police',
@@ -12,11 +13,24 @@ export class FichePoliceComponent implements OnInit {
   tableSize: number = 5;
   tableSizes: any = [5, 10, 15, 20];
 
-  data: any[] = [].constructor(7);
+  nowDate: Date = new Date();
+  fichesPolice: any[] = [];
 
-  constructor() { }
+  constructor(
+    private fichePoliceService: FichePoliceService
+  ) { }
 
   ngOnInit(): void {
+    
+  }
+
+  onSearch(dateDeb: string, dateFin: string, hebergeur: string) {
+    const search = 'ficp_datedeb='+dateDeb+'&ficp_datefin='+dateFin+'&ficp_heb_id=24';
+    this.fichePoliceService.fichePoliceRecherche(search).subscribe(
+      response => {
+        this.fichesPolice = response.results;
+      }
+    )
   }
 
   changeSize(value: string) {
@@ -25,12 +39,12 @@ export class FichePoliceComponent implements OnInit {
 
   onTableDataChange(event: any) {
     this.page = event;
-    this.data;
+    this.fichesPolice;
   }
 
   onTableSizeChange(event: any): void {
     this.tableSize = event.target.value;
     this.page = 1;
-    this.data;
+    this.fichesPolice;
   }
 }

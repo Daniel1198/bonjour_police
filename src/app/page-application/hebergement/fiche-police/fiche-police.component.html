@@ -1,4 +1,4 @@
-<div>
+<div (load)="onSearch(dateDeb.value, dateFin.value, hebergeur.value)">
     <div class="header bg-light py-2 px-4 d-flex justify-content-between align-items-center rounded">
       <div>
         <h4 class="mb-0 text-info"><b>{{ "Hébergement" | uppercase }}</b></h4>
@@ -25,23 +25,41 @@
       <div class="row px-5">
         <div class="col-3 px-2 form-group">
           <label for="debut" class="form-label font-weight-bold">Du</label>
-          <input type="date" class="form-control" id="debut">
+          <input 
+          type="date" 
+          class="form-control" 
+          id="debut" 
+          value="{{ nowDate | date: 'yyyy-MM-dd' }}" 
+          #dateDeb>
         </div>
     
         <div class="col-3 px-2 form-group">
           <label for="fin" class="form-label font-weight-bold">Au</label>
-          <input type="date" class="form-control" id="fin">
+          <input 
+          type="date" 
+          class="form-control" 
+          id="fin" 
+          value="{{ nowDate | date: 'yyyy-MM-dd' }}" 
+          #dateFin>
         </div>
     
         <div class="col-3 px-2 form-group">
-          <label for="hotel" style="margin-top: 2px;" class="form-label font-weight-bold">Hotel</label>
-          <select id="hotel" class="form-control" style="padding-block: 14px;">
+          <label for="hebergeur" style="margin-top: 2px;" class="form-label font-weight-bold">Hotel</label>
+          <select 
+          id="hebergeur" 
+          class="form-control" 
+          style="padding-block: 14px;"
+          #hebergeur>
             <option value="" class="disabled">-- Choisir l'hotel ---</option>
           </select>
         </div>
     
         <div class="col-3 px-2 form-group d-flex align-items-end">
-          <button class="btn btn-info w-100" style="margin-bottom: 1px;">
+          <button 
+          class="btn btn-info w-100" 
+          style="margin-bottom: 1px;"
+          (click)="onSearch(dateDeb.value, dateFin.value, hebergeur.value)"
+          >
             Rechercher
           </button>
         </div>
@@ -64,7 +82,7 @@
         </thead>
   
         <tbody>
-          <tr *ngFor="let n of data | paginate
+          <tr *ngFor="let fp of fichesPolice | paginate
           : {
               itemsPerPage: tableSize,
               currentPage: page,
@@ -74,12 +92,12 @@
             <td class="py-2">
               <div class="rounded-circle bg-danger" style="width: 10px; height: 10px;"></div>
             </td>
-            <td class="py-2">Koffi</td>
-            <td class="py-2">Kouamé Ulrich</td>
-            <td class="py-2">07 65 86 87 89</td>
-            <td class="py-2">2023/01/01</td>
-            <td class="py-2">2023/01/10</td>
-            <td class="py-2">Ivoirienne</td>
+            <td class="py-2">{{ fp.ficp_nom }}</td>
+            <td class="py-2">{{ fp.ficp_prenoms }}</td>
+            <td class="py-2">{{ fp.ficp_tel }}</td>
+            <td class="py-2">{{ fp.ficp_datearriv }}</td>
+            <td class="py-2">{{ fp.ficp_datedep }}</td>
+            <td class="py-2">{{ fp.ficp_nationnalite }}</td>
             <td class="py-2" align="right">
               <button class="btn btn-outline-info btn-sm">
                 <span class="typcn typcn-eye-outline"></span>
@@ -89,8 +107,8 @@
           </tr>
         </tbody>
       </table>
-      <div class="px-3 mt-2 d-flex justify-content-end align-items-center" style="font-size: small;" *ngIf="data.length > 0">
-            <p>Total : [ {{ data.length }} ]</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <div class="px-3 mt-2 d-flex justify-content-end align-items-center" style="font-size: small;" *ngIf="fichesPolice.length > 0">
+            <p>Total : [ {{ fichesPolice.length }} ]</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           
             <div class="d-flex mr-3">
               Enregistrements par page :&nbsp;&nbsp;

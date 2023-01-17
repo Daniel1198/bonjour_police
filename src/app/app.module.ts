@@ -22,7 +22,6 @@ import { LoaderComponent } from './tpl/loader/loader.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     NgxPaginationModule,
