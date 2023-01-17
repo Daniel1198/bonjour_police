@@ -17,6 +17,6 @@ export class HebergeurService {
   }
 
   nouvelHebergeur(hebergeur: any): Observable<any> {
-    return this.httpClient.post<any>(this.urlG + '', hebergeur);
+    return this.httpClient.post<any>(this.urlG + '/hebergeur/ajout.php', hebergeur);
   }
 }

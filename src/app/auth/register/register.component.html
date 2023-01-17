@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="col-8 h-100">
-      <div class="p-3 text-white text-center" style="background-color: rgb(255, 194, 80);">
+      <div class="p-3 text-white text-center" style="background-color: rgb(80, 156, 255);">
         <strong>Inscription hébergeur</strong>
       </div>
       <form class="row px-5 pt-5 mb-3 overflow-auto" style="height: 90%;" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
@@ -33,11 +33,11 @@
   
           <div class="form-group">
             <label for="city">Ville <span class="text-danger">*</span></label>
-            <select id="city" class="form-control" #city (change)="getPolicesByCity(city.value)" formControlName="ville">
+            <select id="city" class="form-control" #city (change)="getPolicesByCity(+city.value)" formControlName="ville">
               <option value="">-- Choix de la ville ---</option>
               <option 
               *ngFor="let ville of villes"
-              [value]="ville.vil_ville"
+              [value]="ville.vil_id"
               >{{ ville.vil_ville }}</option>
             </select>
           </div>
@@ -79,7 +79,7 @@
           </div>
   
           <div class="form-group">
-            <label for="tel">Tel.</label>
+            <label for="tel">Tel. <span class="text-danger">*</span></label>
             <input type="tel" id="tel" class="form-control" formControlName="tel">
           </div>
   
@@ -122,6 +122,10 @@
             <label for="cpf">Cel. point focal</label>
             <input type="text" id="cpf" class="form-control" formControlName="celPointFocal">
           </div>
+        </div>
+
+        <div class="w-100 text-center" *ngIf="loading">
+          <loader></loader>
         </div>
   
         <div class="w-100 d-flex mt-4 mb-5">

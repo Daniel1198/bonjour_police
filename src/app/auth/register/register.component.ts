@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   commissariats: any[] = [];
   formGroup!: FormGroup;
   previewImage: any;
+  loading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,7 +35,6 @@ export class RegisterComponent implements OnInit {
 
   initForm() {
     this.formGroup = this.formBuilder.group({
-      id: [''],
       type: ['', Validators.required],
       ville: ['', Validators.required],
       commissariat: ['', Validators.required],
@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
       gps: [''],
       adresse: [''],
       email: ['', [Validators.required, Validators.email]],
-      tel: [''],
+      tel: ['', Validators.required],
       cel: ['', Validators.required],
       pointFocal: [''],
       celPointFocal: [''],
@@ -54,33 +54,36 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     const formData = new FormData();
 
-    formData.append('', this.formGroup.get('id')?.value);
-    formData.append('', this.formGroup.get('type')?.value);
-    formData.append('', this.formGroup.get('ville')?.value);
-    formData.append('', this.formGroup.get('commissariat')?.value);
-    formData.append('', this.formGroup.get('designation')?.value);
+    formData.append('heb_type', this.formGroup.get('type')?.value);
+    formData.append('heb_ville', this.formGroup.get('ville')?.value);
+    formData.append('heb_commissariat', this.formGroup.get('commissariat')?.value);
+    formData.append('heb_designation', this.formGroup.get('designation')?.value);
     formData.append('', this.formGroup.get('situationGeo')?.value);
-    formData.append('', this.formGroup.get('siteWeb')?.value);
-    formData.append('', this.formGroup.get('capacite')?.value);
-    formData.append('', this.formGroup.get('gps')?.value);
-    formData.append('', this.formGroup.get('adresse')?.value);
-    formData.append('', this.formGroup.get('email')?.value);
-    formData.append('', this.formGroup.get('tel')?.value);
-    formData.append('', this.formGroup.get('cel')?.value);
-    formData.append('', this.formGroup.get('pointFocal')?.value);
-    formData.append('', this.formGroup.get('celPointFocal')?.value);
-    formData.append('', this.formGroup.get('image')?.value);
+    formData.append('heb_siteweb', this.formGroup.get('siteWeb')?.value);
+    formData.append('heb_capacite', this.formGroup.get('capacite')?.value);
+    formData.append('heb_gps', this.formGroup.get('gps')?.value);
+    formData.append('heb_addresse', this.formGroup.get('adresse')?.value);
+    formData.append('heb_email', this.formGroup.get('email')?.value);
+    formData.append('heb_tel', this.formGroup.get('tel')?.value);
+    formData.append('heb_cel', this.formGroup.get('cel')?.value);
+    formData.append('heb_responsable', this.formGroup.get('pointFocal')?.value);
+    formData.append('heb_celresponsable', this.formGroup.get('celPointFocal')?.value);
+    formData.append('heb_lienimage', this.formGroup.get('image')?.value);
 
     this.hebergeurService.nouvelHebergeur(formData).subscribe(
       response => {
-        if (response.success) {
-
-        }
-        else {
+        this.loading = false;
+        console.log(response);
+        
+        // if (response.success) {
           
-        }
+        // }
+        // else {
+
+        // }
       }
     );
   }
@@ -115,8 +118,9 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  getPolicesByCity(villeLib: string) {
-    this.commissariatService.commissariatParVille(villeLib).subscribe(
+  getPolicesByCity(villeId: number) {
+    const ville = this.villes.find((ville: any) => ville.vil_id == villeId);
+    this.commissariatService.commissariatParVille(ville.vil_ville).subscribe(
       response => {
         this.commissariats = response.results
       }
