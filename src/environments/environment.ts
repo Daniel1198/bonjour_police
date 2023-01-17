@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // Apiurl: 'http://apiworkflow.rti.ci/',
-  Apiurl: 'http://10.102.0.25:8091/',
+  Apiurl: 'https://apibonjourpolice.empreinte-ci.net/',
 };
 
 /*
