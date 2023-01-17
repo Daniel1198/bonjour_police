@@ -4,6 +4,7 @@ import { CommissariatService } from 'src/app/services/commissariat/commissariat.
 import { HebergeurService } from 'src/app/services/hebergeur/hebergeur.service';
 import { TypeHebergeurService } from 'src/app/services/type_hebergeur/type-hebergeur.service';
 import { VilleService } from 'src/app/services/ville/ville.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -54,6 +55,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
+  
     this.loading = true;
     const formData = new FormData();
 
@@ -61,7 +63,7 @@ export class RegisterComponent implements OnInit {
     formData.append('heb_ville', this.formGroup.get('ville')?.value);
     formData.append('heb_commissariat', this.formGroup.get('commissariat')?.value);
     formData.append('heb_designation', this.formGroup.get('designation')?.value);
-    formData.append('', this.formGroup.get('situationGeo')?.value);
+    formData.append('heb_situationgeo', this.formGroup.get('situationGeo')?.value);
     formData.append('heb_siteweb', this.formGroup.get('siteWeb')?.value);
     formData.append('heb_capacite', this.formGroup.get('capacite')?.value);
     formData.append('heb_gps', this.formGroup.get('gps')?.value);
@@ -76,14 +78,26 @@ export class RegisterComponent implements OnInit {
     this.hebergeurService.nouvelHebergeur(formData).subscribe(
       response => {
         this.loading = false;
-        console.log(response);
-        
-        // if (response.success) {
-          
-        // }
-        // else {
-
-        // }
+        if (response.statut) {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Hébergeur enregistré avec succès !',
+            html: 'Email : <b>'+ this.formGroup.get('email')?.value +'</b><br>'+
+            'Mot de passe : <b>password</b>',
+            showConfirmButton: true
+          });
+          this.formGroup.reset();
+        }
+        else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Oops...',
+            text: response.message,
+            showConfirmButton: true
+          });
+        }
       }
     );
   }
@@ -118,9 +132,8 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  getPolicesByCity(villeId: number) {
-    const ville = this.villes.find((ville: any) => ville.vil_id == villeId);
-    this.commissariatService.commissariatParVille(ville.vil_ville).subscribe(
+  getPolicesByCity(villeLib: string) {
+    this.commissariatService.commissariatParVille(villeLib).subscribe(
       response => {
         this.commissariats = response.results
       }

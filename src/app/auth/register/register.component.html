@@ -26,18 +26,18 @@
               <option value="">-- Choix du type d'hébergement ---</option>
               <option 
               *ngFor="let type of typesHebergeur"
-              [value]="type.typheb_id"
+              [value]="type.typheb_type"
               >{{ type.typheb_type }}</option>
             </select>
           </div>
   
           <div class="form-group">
             <label for="city">Ville <span class="text-danger">*</span></label>
-            <select id="city" class="form-control" #city (change)="getPolicesByCity(+city.value)" formControlName="ville">
+            <select id="city" class="form-control" #city (change)="getPolicesByCity(city.value)" formControlName="ville">
               <option value="">-- Choix de la ville ---</option>
               <option 
               *ngFor="let ville of villes"
-              [value]="ville.vil_id"
+              [value]="ville.vil_ville"
               >{{ ville.vil_ville }}</option>
             </select>
           </div>
@@ -48,7 +48,7 @@
               <option value="">-- Choix du commissariat ---</option>
               <option 
               *ngFor="let commissariat of commissariats"
-              [value]="commissariat.com_id"
+              [value]="commissariat.com_commissariat"
               >{{ commissariat.com_commissariat }}</option>
             </select>
           </div>

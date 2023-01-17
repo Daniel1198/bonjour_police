@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { VilleService } from 'src/app/services/ville/ville.service';
 
 @Component({
   selector: 'app-villes',
@@ -12,13 +13,24 @@ export class VillesComponent implements OnInit {
   tableSize: number = 5;
   tableSizes: any = [5, 10, 15, 20];
 
-  data: any[] = [].constructor(7);
+  villes: any[] = [];
 
   showAddCity: boolean = false;
 
-  constructor() { }
+  constructor(
+    private villeService: VilleService
+  ) { }
 
   ngOnInit(): void {
+    this.getAllCities();
+  }
+
+  getAllCities() {
+    this.villeService.listeVille().subscribe(
+      response => {
+        this.villes = response.results;
+      }
+    );
   }
 
   changeSize(value: string) {
@@ -27,13 +39,13 @@ export class VillesComponent implements OnInit {
 
   onTableDataChange(event: any) {
     this.page = event;
-    this.data;
+    this.villes;
   }
 
   onTableSizeChange(event: any): void {
     this.tableSize = event.target.value;
     this.page = 1;
-    this.data;
+    this.villes;
   }
 
   changeScreen() {
