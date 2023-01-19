@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { VilleService } from 'src/app/services/ville/ville.service';
 
 @Component({
   selector: 'app-commissariat',
@@ -12,11 +13,29 @@ export class CommissariatComponent implements OnInit {
   tableSize: number = 5;
   tableSizes: any = [5, 10, 15, 20];
 
-  data: any[] = [].constructor(7);
+  commissariats: any[] = [];
+  villes: any[] = [];
+  loading: boolean = false;
 
-  constructor() { }
+  constructor(
+    private villeService: VilleService
+  ) { }
 
   ngOnInit(): void {
+    this.getAllCities();
+    this.getAllPolices();
+  }
+
+  getAllPolices() {
+    this.loading = true;
+  }
+
+  getAllCities() {
+    this.villeService.listeVille().subscribe(
+      response => {
+        this.villes = response.results;
+      }
+    );
   }
 
   changeSize(value: string) {
@@ -25,13 +44,13 @@ export class CommissariatComponent implements OnInit {
 
   onTableDataChange(event: any) {
     this.page = event;
-    this.data;
+    this.commissariats;
   }
 
   onTableSizeChange(event: any): void {
     this.tableSize = event.target.value;
     this.page = 1;
-    this.data;
+    this.commissariats;
   }
 
 }

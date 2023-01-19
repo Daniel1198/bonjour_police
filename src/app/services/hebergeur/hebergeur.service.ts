@@ -19,4 +19,10 @@ export class HebergeurService {
   nouvelHebergeur(hebergeur: any): Observable<any> {
     return this.httpClient.post<any>(this.urlG + '/hebergeur/ajout.php', hebergeur);
   }
+
+  hebergeurParVille(ville: string): Observable<any> {
+    return this.httpClient.get<any>(this.urlG + '/hebergeur/liste.php?heb_ville=' + ville);
+  }
+
+
 }

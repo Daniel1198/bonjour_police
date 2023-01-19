@@ -5,21 +5,21 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
-import { LoaderComponent } from '../tpl/loader/loader.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { LoaderModule } from '../tpl/loader/loader.module';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent,
-    LoaderComponent
+    RegisterComponent
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    SweetAlert2Module
-  ]
+    SweetAlert2Module,
+    LoaderModule
+  ],
 })
 export class AuthModule { }

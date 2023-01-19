@@ -16,6 +16,7 @@ export class VillesComponent implements OnInit {
   villes: any[] = [];
 
   showAddCity: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private villeService: VilleService
@@ -26,8 +27,10 @@ export class VillesComponent implements OnInit {
   }
 
   getAllCities() {
+    this.loading = true;
     this.villeService.listeVille().subscribe(
       response => {
+        this.loading = false;
         this.villes = response.results;
       }
     );

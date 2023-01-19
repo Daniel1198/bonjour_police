@@ -12,13 +12,13 @@ import { VillesComponent } from './administration/villes/villes.component';
 import { HebergementsComponent } from './administration/hebergements/hebergements.component';
 import { AddCommissariatComponent } from './administration/add-commissariat/add-commissariat.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ProfilRechercheComponent } from './commissariat/profil-recherche/profil-recherche.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { DashboardCommissariatComponent } from './dashboard-commissariat/dashboard-commissariat.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { LoaderComponent } from '../tpl/loader/loader.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { LoaderModule } from '../tpl/loader/loader.module';
 
 
 @NgModule({
@@ -33,8 +33,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     AddCommissariatComponent,
     ProfilRechercheComponent,
     DashboardCommissariatComponent,
-    ResetPasswordComponent,
-    LoaderComponent
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +42,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     NgSelectModule,
     ReactiveFormsModule,
     HighchartsChartModule,
-    SweetAlert2Module
+    SweetAlert2Module,
+    LoaderModule
   ]
 })
 export class PageApplicationModule { }

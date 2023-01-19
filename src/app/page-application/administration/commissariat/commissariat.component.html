@@ -26,6 +26,9 @@
         <div class="col-4 form-group">
           <select id="city" class="form-control" style="padding-block: 14px;">
               <option value="" class="disabled">-- Sélectionner la ville ---</option>
+              <option
+              *ngFor="let ville of villes"
+              [value]="ville.vil_id">{{ ville.vil_ville }}</option>
           </select>
         </div>
     
@@ -36,7 +39,9 @@
         </div>
       </div>
     </div>
-  
+    <div class="text-center" *ngIf="loading">
+      <loader></loader>
+    </div>
     <div class="bg-white mt-3 rounded mat-elevation-z3 mb-3">
       <table class="table table-striped">
         <thead>
@@ -52,19 +57,19 @@
         </thead>
   
         <tbody>
-          <tr *ngFor="let n of data | paginate
+          <tr *ngFor="let commissariat of commissariats | paginate
           : {
               itemsPerPage: tableSize,
               currentPage: page,
               totalItems: count
             };
             let i = index">
-            <td class="py-2">Koffi</td>
-            <td class="py-2">Kouamé Ulrich</td>
-            <td class="py-2">07 65 86 87 89</td>
-            <td class="py-2">2023/01/01</td>
-            <td class="py-2">2023/01/10</td>
-            <td class="py-2">Ivoirienne</td>
+            <td class="py-2">{{ commissariat.com_ville }}</td>
+            <td class="py-2">{{ commissariat.com_designation }}</td>
+            <td class="py-2">{{ commissariat.com_adresse }}</td>
+            <td class="py-2">{{ commissariat.com_tel }}</td>
+            <td class="py-2">{{ commissariat.com_cel }}</td>
+            <td class="py-2">{{ commissariat.com_commissaire }}</td>
             <td class="py-2" align="right">
               <button class="btn btn-outline-info btn-sm">
                 <span class="typcn typcn-edit"></span>
@@ -76,8 +81,8 @@
           </tr>
         </tbody>
       </table>
-      <div class="px-3 mt-2 d-flex justify-content-end align-items-center" style="font-size: small;" *ngIf="data.length > 0">
-            <p>Total : [ {{ data.length }} ]</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <div class="px-3 mt-2 d-flex justify-content-end align-items-center" style="font-size: small;" *ngIf="commissariats.length > 0">
+            <p>Total : [ {{ commissariats.length }} ]</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           
             <div class="d-flex mr-3">
               Enregistrements par page :&nbsp;&nbsp;

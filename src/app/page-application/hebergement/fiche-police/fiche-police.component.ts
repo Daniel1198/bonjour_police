@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FichePoliceService } from 'src/app/services/fiche-police/fiche-police.service';
+import { HebergeurService } from 'src/app/services/hebergeur/hebergeur.service';
 
 @Component({
   selector: 'app-fiche-police',
@@ -15,19 +16,41 @@ export class FichePoliceComponent implements OnInit {
 
   nowDate: Date = new Date();
   fichesPolice: any[] = [];
+  hebergeurs: any[] = [];
+  loading: boolean = false;
 
   constructor(
-    private fichePoliceService: FichePoliceService
+    private fichePoliceService: FichePoliceService,
+    private hebergeurService: HebergeurService
   ) { }
 
   ngOnInit(): void {
-    
+    const day = this.nowDate.getDate() < 10 ? '0' + this.nowDate.getDate() : this.nowDate.getDate();
+    const month = this.nowDate.getMonth() < 10 ? '0' + this.nowDate.getMonth() + 1 : this.nowDate.getMonth() + 1;
+    const date = this.nowDate.getFullYear() + '-' + month + '-' + day;
+    this.getHotelsByCity();
+    this.onSearch(date, date, 24);
   }
 
-  onSearch(dateDeb: string, dateFin: string, hebergeur: string) {
+  getHotelsByCity() {
+    this.hebergeurService.hebergeurParVille('ABIDJAN-YOPOUGON').subscribe(
+      response => {
+        this.hebergeurs = response.results;
+      }
+    );
+  }
+
+  getTime(date: Date): number {
+    const d = new Date(date);
+    return d.getTime();
+  }
+
+  onSearch(dateDeb: string, dateFin: string, hebergeur: number) {
+    this.loading = true;
     const search = 'ficp_datedeb='+dateDeb+'&ficp_datefin='+dateFin+'&ficp_heb_id=24';
     this.fichePoliceService.fichePoliceRecherche(search).subscribe(
       response => {
+        this.loading = false;
         this.fichesPolice = response.results;
       }
     )

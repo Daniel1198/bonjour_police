@@ -61,27 +61,20 @@
             <b>Nouvelle alerte</b>
         </div>
 
-        <div class="px-5 row">
-            <div class="col-6 form-group">
+        <form class="px-5 row" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+            <div class="col-12 form-group">
                 <label for="name" class="form-label font-weight-bold">
-                    Nom <span class="text-danger">*</span>
+                    Nom & Prénom(s) <span class="text-danger">*</span>
                 </label>
-                <input type="text" id="name" class="form-control">
-            </div>
-
-            <div class="col-6 form-group">
-                <label for="firstname" class="form-label font-weight-bold">
-                    Prénom(s) <span class="text-danger">*</span>
-                </label>
-                <input type="text" id="firstname" class="form-control">
+                <input type="text" id="name" class="form-control" formControlName="nomPrenom">
             </div>
 
             <div class="col-4 form-group">
                 <label for="sex" class="form-label font-weight-bold">
                     Genre <span class="text-danger">*</span>
                 </label>
-                <select id="sex" class="form-control" style="padding-block: 14px;">
-                    <option value="" class="disabled">-- Sélectionner le genre ---</option>
+                <select id="sex" class="form-control" style="padding-block: 14px;" formControlName="genre">
+                    <!-- <option value="" class="disabled">-- Sélectionner le genre ---</option> -->
                     <option value="M">Masculin</option>
                     <option value="F">Féminin</option>
                 </select>
@@ -91,7 +84,7 @@
                 <label for="nationality" class="form-label font-weight-bold">
                     Nationalité <span class="text-danger">*</span>
                 </label>
-                <input type="text" id="nationality" class="form-control">
+                <input type="text" id="nationality" class="form-control" formControlName="nationalite">
             </div>
 
             <div class="form-group col-2">
@@ -99,10 +92,7 @@
                     De <span class="text-danger">*</span>
                 </label>
                 <div class="input-group">
-                    <select id="minage" class="form-control" style="padding-block: 14px;">
-                        <option value="" class="disabled">-- Âge minimal ---</option>
-                        <option *ngFor="let n of [].constructor(100); let i = index;" [value]="i">{{ i }}</option>
-                    </select>
+                    <input type="number" id="minage" class="form-control" value="0" formControlName="ageMin">
                     <div class="input-group-prepend">
                         <div class="input-group-text">ans</div>
                     </div>
@@ -114,10 +104,7 @@
                     A <span class="text-danger">*</span>
                 </label>
                 <div class="input-group">
-                    <select id="maxage" class="form-control" style="padding-block: 14px;">
-                        <option value="" class="disabled">-- Âge maximal ---</option>
-                        <option *ngFor="let n of [].constructor(100); let i = index;" [value]="i">{{ i }}</option>
-                    </select>
+                    <input type="number" id="maxage" class="form-control" value="100" formControlName="ageMax">
                     <div class="input-group-prepend">
                         <div class="input-group-text">ans</div>
                     </div>
@@ -125,20 +112,20 @@
             </div>
 
             <div class="col-12 mb-3 text-right">
-                <button class="btn btn-success">
+                <button class="btn btn-success" [disabled]="formGroup.invalid">
                     Enregistrer
                 </button>
             </div>
+        </form>
         </div>
+        <div class="text-center" *ngIf="loading">
+            <loader></loader>
         </div>
-
         <div class="bg-white mt-3 rounded mat-elevation-z3 mb-3">
             <table class="table table-striped">
                 <thead>
                     <tr class="text-white" style="background-color: #1b1b29;">
-                        <th class="py-3"></th>
-                        <th class="py-3">Nom.</th>
-                        <th class="py-3">Prénom(s).</th>
+                        <th class="py-3">Nom & Prénom(s).</th>
                         <th class="py-3">Âge.</th>
                         <th class="py-3">Nationalité.</th>
                         <th class="py-3"></th>
@@ -146,22 +133,16 @@
                 </thead>
 
                 <tbody>
-                    <tr *ngFor="let n of data | paginate
+                    <tr *ngFor="let pr of profilsRecherches | paginate
           : {
               itemsPerPage: tableSize,
               currentPage: page,
               totalItems: count
             };
             let i = index">
-                        <td class="py-2">
-                            <div style="width: 50px; height: 50px;" class="rounded-circle bg-light">
-
-                            </div>
-                        </td>
-                        <td class="py-2">Koffi</td>
-                        <td class="py-2">Kouamé Ulrich</td>
-                        <td class="py-2">19 ans</td>
-                        <td class="py-2">Ivoirienne</td>
+                        <td class="py-2">{{ pr.prf_nomprenoms }}</td>
+                        <td class="py-2">[{{ pr.prf_agedeb + ' - ' + pr.prf_agefin}}]</td>
+                        <td class="py-2">{{ pr.prf_nationnalite }}</td>
                         <td class="py-2" align="right">
                             <button class="btn btn-outline-info btn-sm">
                                 <span class="typcn typcn-edit"></span>
@@ -174,8 +155,8 @@
                 </tbody>
             </table>
             <div class="px-3 mt-2 d-flex justify-content-end align-items-center" style="font-size: small;"
-                *ngIf="data.length > 0">
-                <p>Total : [ {{ data.length }} ]</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                *ngIf="profilsRecherches.length > 0">
+                <p>Total : [ {{ profilsRecherches.length }} ]</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <div class="d-flex mr-3">
                     Enregistrements par page :&nbsp;&nbsp;

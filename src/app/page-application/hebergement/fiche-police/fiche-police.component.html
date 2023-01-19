@@ -1,4 +1,4 @@
-<div (load)="onSearch(dateDeb.value, dateFin.value, hebergeur.value)">
+<div>
     <div class="header bg-light py-2 px-4 d-flex justify-content-between align-items-center rounded">
       <div>
         <h4 class="mb-0 text-info"><b>{{ "Hébergement" | uppercase }}</b></h4>
@@ -50,7 +50,10 @@
           class="form-control" 
           style="padding-block: 14px;"
           #hebergeur>
-            <option value="" class="disabled">-- Choisir l'hotel ---</option>
+            <option value="" disabled>-- Choisir l'hotel ---</option>
+            <option
+            *ngFor="let hebergeur of hebergeurs"
+            [value]="hebergeur.heb_id" [selected]="hebergeur.heb_id == 24" [disabled]="hebergeur.heb_id != 24">{{ hebergeur.heb_designation }}</option>
           </select>
         </div>
     
@@ -58,14 +61,16 @@
           <button 
           class="btn btn-info w-100" 
           style="margin-bottom: 1px;"
-          (click)="onSearch(dateDeb.value, dateFin.value, hebergeur.value)"
+          (click)="onSearch(dateDeb.value, dateFin.value, +hebergeur.value)"
           >
             Rechercher
           </button>
         </div>
       </div>
     </div>
-  
+    <div class="text-center" *ngIf="loading">
+      <loader></loader>
+    </div>
     <div class="bg-white mt-3 rounded mat-elevation-z3 mb-3">
       <table class="table table-striped">
         <thead>
@@ -90,7 +95,10 @@
             };
             let i = index">
             <td class="py-2">
-              <div class="rounded-circle bg-danger" style="width: 10px; height: 10px;"></div>
+              <div 
+              class="rounded-circle" 
+              [ngClass]="{'bg-success': getTime(fp.ficp_datedep) > getTime(nowDate), 'bg-danger': getTime(fp.ficp_datedep) < getTime(nowDate)}" 
+              style="width: 10px; height: 10px;"></div>
             </td>
             <td class="py-2">{{ fp.ficp_nom }}</td>
             <td class="py-2">{{ fp.ficp_prenoms }}</td>

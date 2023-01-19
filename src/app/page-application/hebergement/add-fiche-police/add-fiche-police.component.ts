@@ -14,10 +14,21 @@ export class AddFichePoliceComponent implements OnInit {
   formGroup!: FormGroup;
   loading: boolean = false;
 
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+
   constructor(
     private fichePoliceService: FichePoliceService,
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +47,7 @@ export class AddFichePoliceComponent implements OnInit {
       email: ['', Validators.email],
       dateArrivee: ['', Validators.required],
       dateDepart: ['', Validators.required],
-      hebergeur: [''],
+      hebergeur: ['24'],
       enfant: this.formBuilder.group({
         nom: [''],
         prenom: [''],
@@ -63,7 +74,7 @@ export class AddFichePoliceComponent implements OnInit {
     formData.append('ficp_addresse', this.formGroup.get('email')?.value);
     formData.append('ficp_datearriv', this.formGroup.get('dateArrivee')?.value);
     formData.append('ficp_datedep', this.formGroup.get('dateDepart')?.value);
-    formData.append('ficp_heb_id', '24');
+    formData.append('ficp_heb_id', this.formGroup.get('hebergeur')?.value);
     formData.append('ficp_nomaccomp', this.formGroup.get('enfant.nom')?.value);
     formData.append('ficp_prenaccomp', this.formGroup.get('enfant.prenom')?.value);
     formData.append('ficp_datenaissaccomp', this.formGroup.get('enfant.dateNaissance')?.value);
@@ -75,22 +86,16 @@ export class AddFichePoliceComponent implements OnInit {
       response => {
         this.loading = false;
         if (response.statut) {
-          Swal.fire({
-            position: 'top-end',
+          this.Toast.fire({
             icon: 'success',
-            title: response.message,
-            showConfirmButton: false,
-            timer: 5000
-          });
+            title: response.message
+          })
         }
         else {
-          Swal.fire({
-            position: 'top-end',
+          this.Toast.fire({
             icon: 'error',
-            title: response.message,
-            showConfirmButton: false,
-            timer: 5000
-          });
+            title: response.message
+          })
         }
       }
     );

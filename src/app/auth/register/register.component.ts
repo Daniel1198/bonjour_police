@@ -20,6 +20,18 @@ export class RegisterComponent implements OnInit {
   previewImage: any;
   loading: boolean = false;
 
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+
   constructor(
     private formBuilder: FormBuilder,
     private typeHebergeurService: TypeHebergeurService,
@@ -90,13 +102,10 @@ export class RegisterComponent implements OnInit {
           this.formGroup.reset();
         }
         else {
-          Swal.fire({
-            position: 'center',
+          this.Toast.fire({
             icon: 'error',
-            title: 'Oops...',
-            text: response.message,
-            showConfirmButton: true
-          });
+            title: response.message
+          })
         }
       }
     );
