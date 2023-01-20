@@ -6,7 +6,7 @@
       </div>
   
       <div>
-        <button class="btn btn-info btn-sm mat-elevation-z2" routerLink="/admin/administration/add-commissariat">
+        <button class="btn btn-info btn-sm mat-elevation-z2" routerLink="/auth/register">
           <span class="typcn typcn-plus"></span>
           Nouveau
         </button>
@@ -19,46 +19,53 @@
       </div>
     
       <div class="row px-5">
-        <div class="col-9 px-2 form-group">
-          <input type="search" class="form-control" placeholder="Tapez votre recherche...">
+        <div class="col-8 px-2 form-group">
+          <input type="search" class="form-control" placeholder="Tapez votre recherche..." #search (input)="onSearch(search.value, ville.value)">
         </div>
-    
-        <div class="col-3 px-2 form-group d-flex align-items-end">
-          <button class="btn btn-info w-100" style="margin-bottom: 1px;">
-            Rechercher
-          </button>
+
+        <div class="col-4 form-group">
+          <select id="city" class="form-control" style="padding-block: 14px;" #ville (change)="onSearch(search.value, ville.value)">
+              <option value="" class="disabled">-- Sélectionner la ville ---</option>
+              <option
+              *ngFor="let ville of villes"
+              [value]="ville.vil_ville">{{ ville.vil_ville }}</option>
+          </select>
         </div>
       </div>
     </div>
-  
+    <div class="text-center" *ngIf="loading">
+      <loader></loader>
+    </div>
     <div class="bg-white mt-3 rounded mat-elevation-z3 mb-3">
       <table class="table table-striped">
         <thead>
           <tr class="text-white" style="background-color: #1b1b29;">
+            <th class="py-3">Désignation.</th>
+            <th class="py-3">Type.</th>
             <th class="py-3">Ville.</th>
-            <th class="py-3">Désignation du commissariat.</th>
-            <th class="py-3">Adresse.</th>
+            <th class="py-3">Commissariat lié.</th>
             <th class="py-3">Tel.</th>
-            <th class="py-3">Cel.</th>
-            <th class="py-3">Commissaire.</th>
             <th class="py-3"></th>
           </tr>
         </thead>
-  
-        <tbody>
-          <tr *ngFor="let n of data | paginate
+        <tbody *ngIf="hebergeurs.length == 0 && !loading">
+          <tr>
+            <td colspan="7" align="center">Aucune donnée n'a été trouvée.</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="hebergeurs.length > 0 && !loading">
+          <tr *ngFor="let hebergeur of hebergeurs | paginate
           : {
               itemsPerPage: tableSize,
               currentPage: page,
               totalItems: count
             };
             let i = index">
-            <td class="py-2">Koffi</td>
-            <td class="py-2">Kouamé Ulrich</td>
-            <td class="py-2">07 65 86 87 89</td>
-            <td class="py-2">2023/01/01</td>
-            <td class="py-2">2023/01/10</td>
-            <td class="py-2">Ivoirienne</td>
+            <td class="py-2">{{ hebergeur.heb_designation }}</td>
+            <td class="py-2">{{ hebergeur.heb_type }}</td>
+            <td class="py-2">{{ hebergeur.heb_ville }}</td>
+            <td class="py-2">{{ hebergeur.heb_commissariat }}</td>
+            <td class="py-2">{{ hebergeur.heb_tel }}</td>
             <td class="py-2" align="right">
               <button class="btn btn-outline-info btn-sm">
                 <span class="typcn typcn-edit"></span>

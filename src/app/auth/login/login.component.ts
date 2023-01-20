@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.logout();
+    //this.authService.logout();
     this.initForm();
   }
 
@@ -39,11 +39,12 @@ export class LoginComponent implements OnInit {
     loginFormData.append('Util_Mdp', f.password);
     //  this.model.action = 'login';
     console.log(loginFormData);
-    this.authService.loginForm(loginFormData).subscribe(
+    this.authService.login(loginFormData).subscribe(
       (response) => {
         console.log(response);
         if (response.status === 'success') {
-          //this.authService.setUser(response);
+         // this.authService.setUser(response);
+          // window.location.href = '/admin/dashboard';
         }
       },
       (error) => {
@@ -62,8 +63,8 @@ export class LoginComponent implements OnInit {
       (result) => {
         this.reponse = result;
         console.log(result);
-        this.router.navigate(['/admin/dashboard']);
-        // window.location.href = '/dashboard';
+      //   this.router.navigate(['/admin/dashboard']);
+        window.location.href = '/admin/dashboard';
         /* this.UtilPremiereCnx = JSON.parse(this.item);
         alert(this.reponse);
         if (this.UtilPremiereCnx == 1) {

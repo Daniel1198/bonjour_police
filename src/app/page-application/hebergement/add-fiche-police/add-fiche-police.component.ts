@@ -13,6 +13,7 @@ export class AddFichePoliceComponent implements OnInit {
 
   formGroup!: FormGroup;
   loading: boolean = false;
+  hebId!: string;
 
   Toast = Swal.mixin({
     toast: true,
@@ -32,6 +33,7 @@ export class AddFichePoliceComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.hebId = localStorage.getItem('user_heb_id')!;
     this.initForm();
   }
 
@@ -41,13 +43,13 @@ export class AddFichePoliceComponent implements OnInit {
       prenom: ['', Validators.required],
       dateNaissance: ['', Validators.required],
       lieuNaissance: ['', Validators.required],
-      domicile: [''],
+      domicile: ['', Validators.required],
       nationalite: ['', Validators.required],
       telephone: ['', Validators.required],
       email: ['', Validators.email],
       dateArrivee: ['', Validators.required],
       dateDepart: ['', Validators.required],
-      hebergeur: ['24'],
+      hebergeur: [this.hebId],
       enfant: this.formBuilder.group({
         nom: [''],
         prenom: [''],
@@ -74,7 +76,7 @@ export class AddFichePoliceComponent implements OnInit {
     formData.append('ficp_addresse', this.formGroup.get('email')?.value);
     formData.append('ficp_datearriv', this.formGroup.get('dateArrivee')?.value);
     formData.append('ficp_datedep', this.formGroup.get('dateDepart')?.value);
-    formData.append('ficp_heb_id', this.formGroup.get('hebergeur')?.value);
+    formData.append('ficp_heb_id', this.hebId);
     formData.append('ficp_nomaccomp', this.formGroup.get('enfant.nom')?.value);
     formData.append('ficp_prenaccomp', this.formGroup.get('enfant.prenom')?.value);
     formData.append('ficp_datenaissaccomp', this.formGroup.get('enfant.dateNaissance')?.value);

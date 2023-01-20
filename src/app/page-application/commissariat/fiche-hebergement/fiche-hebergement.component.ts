@@ -18,6 +18,7 @@ export class FicheHebergementComponent implements OnInit {
 
   fichesPolice: any[] = [];
   hebergeurs: any[] = [];
+  ville: any;
   
   constructor(
     private fichePoliceService: FichePoliceService,
@@ -25,14 +26,15 @@ export class FicheHebergementComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.ville = localStorage.getItem('user_heb_ville');
     const day = this.nowDate.getDate() < 10 ? '0' + this.nowDate.getDate() : this.nowDate.getDate();
     const month = this.nowDate.getMonth() < 10 ? '0' + this.nowDate.getMonth() + 1 : this.nowDate.getMonth() + 1;
     const date = this.nowDate.getFullYear() + '-' + month + '-' + day;
     this.getHotelsByCity();
-    this.onSearch(date, date, 24);
+    this.onSearch(date, date, null);
   }
 
-  onSearch(dateDeb: string, dateFin: string, hebergeur: number) {
+  onSearch(dateDeb: string, dateFin: string, hebergeur: number | null) {
     this.loading = true;
     const search = 'ficp_datedeb='+dateDeb+'&ficp_datefin='+dateFin+'&ficp_heb_id='+hebergeur;
     this.fichePoliceService.fichePoliceRecherche(search).subscribe(
@@ -49,7 +51,7 @@ export class FicheHebergementComponent implements OnInit {
   }
 
   getHotelsByCity() {
-    this.hebergeurService.hebergeurParVille('ABIDJAN-YOPOUGON').subscribe(
+    this.hebergeurService.hebergeurParVille(this.ville).subscribe(
       response => {
         this.hebergeurs = response.results;
       }

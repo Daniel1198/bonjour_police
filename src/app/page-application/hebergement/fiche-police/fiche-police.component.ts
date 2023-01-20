@@ -19,25 +19,42 @@ export class FichePoliceComponent implements OnInit {
   hebergeurs: any[] = [];
   loading: boolean = false;
 
+  idHotel!: string;
+  profile!: string;
+  villeheb: any;
+  hebergeur2!: number;
+
   constructor(
     private fichePoliceService: FichePoliceService,
     private hebergeurService: HebergeurService
   ) { }
 
   ngOnInit(): void {
+    this.idHotel = localStorage.getItem('user_heb_id')!;
+    this.profile = localStorage.getItem('prof_id')!;
+    this.villeheb = localStorage.getItem('user_heb_ville')!;
     const day = this.nowDate.getDate() < 10 ? '0' + this.nowDate.getDate() : this.nowDate.getDate();
     const month = this.nowDate.getMonth() < 10 ? '0' + this.nowDate.getMonth() + 1 : this.nowDate.getMonth() + 1;
     const date = this.nowDate.getFullYear() + '-' + month + '-' + day;
     this.getHotelsByCity();
-    this.onSearch(date, date, 24);
+    this.onSearch(date, date, +this.idHotel);
   }
 
   getHotelsByCity() {
-    this.hebergeurService.hebergeurParVille('ABIDJAN-YOPOUGON').subscribe(
-      response => {
-        this.hebergeurs = response.results;
-      }
-    );
+    if (+this.profile == 1) {
+      this.hebergeurService.listeHebergeur().subscribe(
+        response => {
+          this.hebergeurs = response.results;
+        }
+      );
+    }
+    else {
+      this.hebergeurService.hebergeurParVille(this.villeheb).subscribe(
+        response => {
+          this.hebergeurs = response.results;
+        }
+      );
+    }
   }
 
   getTime(date: Date): number {
@@ -47,7 +64,7 @@ export class FichePoliceComponent implements OnInit {
 
   onSearch(dateDeb: string, dateFin: string, hebergeur: number) {
     this.loading = true;
-    const search = 'ficp_datedeb='+dateDeb+'&ficp_datefin='+dateFin+'&ficp_heb_id=24';
+    const search = 'ficp_datedeb='+dateDeb+'&ficp_datefin='+dateFin+'&ficp_heb_id='+hebergeur;
     this.fichePoliceService.fichePoliceRecherche(search).subscribe(
       response => {
         this.loading = false;

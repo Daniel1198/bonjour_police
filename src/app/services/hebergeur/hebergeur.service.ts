@@ -21,8 +21,11 @@ export class HebergeurService {
   }
 
   hebergeurParVille(ville: string): Observable<any> {
-    return this.httpClient.get<any>(this.urlG + '/hebergeur/liste.php?heb_ville=' + ville);
+    return this.httpClient.get<any>(this.urlG + '/hebergeur/liste_par_ville.php?heb_ville=' + ville);
   }
 
+  listeHebergeur(): Observable<any> {
+    return this.httpClient.get<any>(this.urlG + '/hebergeur/liste.php');
+  }
 
 }

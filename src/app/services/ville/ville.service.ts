@@ -13,10 +13,14 @@ export class VilleService {
     private configService: ConfigService,
     private httpClient: HttpClient
   ) { 
-    this.urlG = configService.urlg;
+    this.urlG = this.configService.urlg;
   }
 
   listeVille(): Observable<any> {
     return this.httpClient.get<any>(this.urlG + '/ville/ville_liste.php');
+  }
+
+  nouvelleVille(ville: any): Observable<any> {
+    return this.httpClient.post<any>(this.urlG + '/ville/ajout.php', ville);
   }
 }

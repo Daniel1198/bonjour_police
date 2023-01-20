@@ -169,7 +169,7 @@
             id="profileDropdown"
           >
             <i class="typcn typcn-user-outline mr-0"></i>
-            <span class="nav-profile-name">Administrateur</span>
+            <span class="nav-profile-name">{{ name | titlecase }}</span>
           </a>
           <div
             class="dropdown-menu dropdown-menu-right navbar-dropdown"
@@ -182,6 +182,7 @@
             <a class="dropdown-item" (click)="onLogout()">
               <i class="typcn typcn-power text-primary"></i>
               Déconnexion
+             
             </a>
           </div>
         </li>
@@ -194,6 +195,7 @@
         <span class="typcn typcn-th-menu"></span>
       </button>
     </div>
+    
   </nav>
   <!-- partial -->
   <div class="container-fluid page-body-wrapper">
@@ -209,7 +211,7 @@
               <span class="sidebar-status-indicator"></span>
             </div>
             <div class="sidebar-profile-name">
-              <p class="sidebar-name">Administrateur</p>
+              <p class="sidebar-name">{{ name | titlecase }}</p>
               <p class="sidebar-designation">Bienvenue !</p>
             </div>
           </div>
@@ -231,21 +233,21 @@
           </div>
           <p class="sidebar-menu-title">Menu de bord</p>
         </li>
-        <li class="nav-item" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active" *ngIf="profile == 2 || profile == 1">
           <a class="nav-link" routerLink="/admin/dashboard">
             <i class="material-icons menu-icon"> home</i>
             <span class="menu-title">Tableau de bord</span>
           </a>
         </li>
 
-        <li class="nav-item" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active" *ngIf="profile == 3 || profile == 1">
           <a class="nav-link" routerLink="/admin/commissariat/dashboard">
             <i class="material-icons menu-icon"> home</i>
             <span class="menu-title">Tableau de bord</span>
           </a>
         </li>
 
-        <li class="nav-item" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active" *ngIf="profile == 2 || profile == 1">
           <a
             class="nav-link"
             data-toggle="collapse"
@@ -271,7 +273,7 @@
           </div>
         </li>
 
-        <li class="nav-item" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active" *ngIf="profile == 3 || profile == 1">
           <a
             class="nav-link"
             data-toggle="collapse"
@@ -299,7 +301,7 @@
           </div>
         </li>
 
-        <li class="nav-item" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active" *ngIf="profile == 1">
           <a
             class="nav-link"
             data-toggle="collapse"

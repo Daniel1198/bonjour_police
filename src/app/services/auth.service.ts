@@ -57,7 +57,8 @@ export class AuthService {
   setUser(resp: any) {
     localStorage.setItem('name', resp.name);
     localStorage.setItem('access_token', resp.access_token);
-    this.router.navigate(['/admin/dashboard']);
+   // window.location.href = '/admin/dashboard';
+   // this.router.navigate(['/admin/dashboard']);
   }
 
   // Checking if token is set
@@ -104,6 +105,10 @@ export class AuthService {
             localStorage.setItem('Util_Email', user.results.Util_Email);
             localStorage.setItem('prof_id', user.results.prof_id);
             localStorage.setItem('access_token', user.results.jwt);
+            localStorage.setItem('user_heb_ville', user.results.user_heb_ville);
+            localStorage.setItem('user_heb_designation', user.results.user_heb_designation);
+            localStorage.setItem('user_heb_commissariat', user.results.user_heb_commissariat);
+            localStorage.setItem('user_heb_id', user.results.user_heb_id);
 
             /*this.concurentUserSubject.next(user.results);  */
             // this.isLoggedIn();

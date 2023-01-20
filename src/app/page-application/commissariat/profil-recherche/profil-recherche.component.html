@@ -131,8 +131,12 @@
                         <th class="py-3"></th>
                     </tr>
                 </thead>
-
-                <tbody>
+                <tbody *ngIf="!loading && profilsRecherches.length == 0">
+                    <tr>
+                        <td colspan="4" align="center">Aucune donnée.</td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="!loading && profilsRecherches.length > 0">
                     <tr *ngFor="let pr of profilsRecherches | paginate
           : {
               itemsPerPage: tableSize,

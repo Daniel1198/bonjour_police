@@ -27,14 +27,8 @@
       </div>
     
       <div class="row px-5">
-        <div class="col-9 px-2 form-group">
-          <input type="search" class="form-control" placeholder="Tapez votre recherche...">
-        </div>
-    
-        <div class="col-3 px-2 form-group d-flex align-items-end">
-          <button class="btn btn-info w-100" style="margin-bottom: 1px;">
-            Rechercher
-          </button>
+        <div class="col-12 px-2 form-group">
+          <input type="search" class="form-control" placeholder="Tapez votre recherche..." #search (input)="onSearch(search.value)">
         </div>
       </div>
     </div>
@@ -44,17 +38,17 @@
         <b>Nouvelle ville</b>
       </div>
     
-      <div class="row px-5">
+      <form class="row px-5" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
         <div class="col-9 px-2 form-group">
-          <input type="text" class="form-control" placeholder="Intitulé...">
+          <input type="text" class="form-control" placeholder="Intitulé..." formControlName="libelle">
         </div>
     
         <div class="col-3 px-2 form-group d-flex align-items-end">
-          <button class="btn btn-success w-100" style="margin-bottom: 1px;">
+          <button class="btn btn-success w-100" style="margin-bottom: 1px;" [disabled]="formGroup.invalid">
             Ajouter
           </button>
         </div>
-      </div>
+      </form>
     </div>
     <div class="text-center" *ngIf="loading">
       <loader></loader>
@@ -68,8 +62,12 @@
             <th class="py-3"></th>
           </tr>
         </thead>
-  
-        <tbody>
+        <tbody *ngIf="villes.length == 0 && !loading">
+          <tr>
+            <td colspan="7" align="center">Aucune donnée n'a été trouvée.</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="villes.length > 0 && !loading">
           <tr *ngFor="let ville of villes | paginate
           : {
               itemsPerPage: tableSize,

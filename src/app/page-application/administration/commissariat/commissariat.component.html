@@ -19,23 +19,17 @@
       </div>
     
       <div class="row px-5">
-        <div class="col-5 px-2 form-group">
-          <input type="search" class="form-control" placeholder="Tapez votre recherche...">
+        <div class="col-8 px-2 form-group">
+          <input type="search" class="form-control" placeholder="Tapez votre recherche..." #search (input)="onSearch(search.value, ville.value)">
         </div>
 
         <div class="col-4 form-group">
-          <select id="city" class="form-control" style="padding-block: 14px;">
+          <select id="city" class="form-control" style="padding-block: 14px;" #ville (change)="onSearch(search.value, ville.value)">
               <option value="" class="disabled">-- Sélectionner la ville ---</option>
               <option
               *ngFor="let ville of villes"
-              [value]="ville.vil_id">{{ ville.vil_ville }}</option>
+              [value]="ville.vil_ville">{{ ville.vil_ville }}</option>
           </select>
-        </div>
-    
-        <div class="col-3 px-2 form-group d-flex align-items-end">
-          <button class="btn btn-info w-100" style="margin-bottom: 1px;">
-            Rechercher
-          </button>
         </div>
       </div>
     </div>
@@ -48,15 +42,21 @@
           <tr class="text-white" style="background-color: #1b1b29;">
             <th class="py-3">Ville.</th>
             <th class="py-3">Désignation du commissariat.</th>
-            <th class="py-3">Adresse.</th>
+            <th class="py-3">Quartier.</th>
             <th class="py-3">Tel.</th>
             <th class="py-3">Cel.</th>
             <th class="py-3">Commissaire.</th>
             <th class="py-3"></th>
           </tr>
         </thead>
+
+        <tbody *ngIf="commissariats.length == 0 && !loading">
+          <tr>
+            <td colspan="7" align="center">Aucune donnée n'a été trouvée.</td>
+          </tr>
+        </tbody>
   
-        <tbody>
+        <tbody *ngIf="commissariats.length > 0 && !loading">
           <tr *ngFor="let commissariat of commissariats | paginate
           : {
               itemsPerPage: tableSize,
@@ -65,8 +65,8 @@
             };
             let i = index">
             <td class="py-2">{{ commissariat.com_ville }}</td>
-            <td class="py-2">{{ commissariat.com_designation }}</td>
-            <td class="py-2">{{ commissariat.com_adresse }}</td>
+            <td class="py-2">{{ commissariat.com_commissariat }}</td>
+            <td class="py-2">{{ commissariat.com_quartier }}</td>
             <td class="py-2">{{ commissariat.com_tel }}</td>
             <td class="py-2">{{ commissariat.com_cel }}</td>
             <td class="py-2">{{ commissariat.com_commissaire }}</td>

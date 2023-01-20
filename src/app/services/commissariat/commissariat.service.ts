@@ -19,4 +19,12 @@ export class CommissariatService {
   commissariatParVille(villeLib: string): Observable<any> {
     return this.httpClient.get<any>(this.urlG + '/commissariat/commissariat_par_ville.php?ville='+villeLib);
   }
+
+  nouveauCommissariat(commissariat: any): Observable<any> {
+    return this.httpClient.post<any>(this.urlG + '/commissariat/ajout.php', commissariat);
+  }
+
+  listeCommissariat(): Observable<any> {
+    return this.httpClient.get<any>(this.urlG + '/commissariat/commissariat_liste.php');
+  }
 }

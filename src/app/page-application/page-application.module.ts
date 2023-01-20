@@ -12,7 +12,7 @@ import { VillesComponent } from './administration/villes/villes.component';
 import { HebergementsComponent } from './administration/hebergements/hebergements.component';
 import { AddCommissariatComponent } from './administration/add-commissariat/add-commissariat.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfilRechercheComponent } from './commissariat/profil-recherche/profil-recherche.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { DashboardCommissariatComponent } from './dashboard-commissariat/dashboard-commissariat.component';
@@ -41,6 +41,7 @@ import { LoaderModule } from '../tpl/loader/loader.module';
     NgxPaginationModule,
     NgSelectModule,
     ReactiveFormsModule,
+    FormsModule,
     HighchartsChartModule,
     SweetAlert2Module,
     LoaderModule

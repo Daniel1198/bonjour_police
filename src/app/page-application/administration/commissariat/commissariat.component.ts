@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommissariatService } from 'src/app/services/commissariat/commissariat.service';
 import { VilleService } from 'src/app/services/ville/ville.service';
 
 @Component({
@@ -14,11 +15,13 @@ export class CommissariatComponent implements OnInit {
   tableSizes: any = [5, 10, 15, 20];
 
   commissariats: any[] = [];
+  data: any[] = [];
   villes: any[] = [];
   loading: boolean = false;
 
   constructor(
-    private villeService: VilleService
+    private villeService: VilleService,
+    private commissariatService: CommissariatService
   ) { }
 
   ngOnInit(): void {
@@ -28,6 +31,13 @@ export class CommissariatComponent implements OnInit {
 
   getAllPolices() {
     this.loading = true;
+    this.commissariatService.listeCommissariat().subscribe(
+      response => {
+        this.loading = false;
+        this.commissariats = response.results;
+        this.data = response.results;
+      }
+    );
   }
 
   getAllCities() {
@@ -36,6 +46,41 @@ export class CommissariatComponent implements OnInit {
         this.villes = response.results;
       }
     );
+  }
+
+  onSearch(search: string, city: string) {
+    if (city && search) {
+      this.commissariats = this.data.filter(commissariat => 
+        (commissariat.com_commissariat.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        commissariat.com_quartier.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        commissariat.com_tel.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        commissariat.com_cel.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        commissariat.com_commissaire.toLowerCase().includes(search.toLocaleLowerCase())) &&
+        commissariat.com_ville.toLowerCase() == city.toLocaleLowerCase()
+      );
+    }
+    else if(search && !city) {
+      this.commissariats = this.data.filter(commissariat => 
+        commissariat.com_commissariat.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        commissariat.com_quartier.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        commissariat.com_tel.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        commissariat.com_cel.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        commissariat.com_commissaire.toLowerCase().includes(search.toLocaleLowerCase())
+      );
+    }
+    else if(!search && city) {
+      this.loading = true;
+      this.commissariatService.commissariatParVille(city).subscribe(
+        response => {
+          this.loading = false
+          this.commissariats = response.results;
+        }
+      );
+    }
+    else {
+      this.getAllPolices();
+    }
+    this.page = 1;
   }
 
   changeSize(value: string) {

@@ -50,10 +50,11 @@
           class="form-control" 
           style="padding-block: 14px;"
           #hebergeur>
-            <option value="" disabled>-- Choisir l'hotel ---</option>
+            <option value="" [disabled]="+profile == 2">-- Choisir l'hotel ---</option>
             <option
             *ngFor="let hebergeur of hebergeurs"
-            [value]="hebergeur.heb_id" [selected]="hebergeur.heb_id == 24" [disabled]="hebergeur.heb_id != 24">{{ hebergeur.heb_designation }}</option>
+            [value]="hebergeur.heb_id" 
+            [selected]="hebergeur.heb_id == idHotel && +profile == 2" [hidden]="hebergeur.heb_id != idHotel && +profile == 2">{{ hebergeur.heb_designation }}</option>
           </select>
         </div>
     
@@ -85,8 +86,12 @@
             <th class="py-3"></th>
           </tr>
         </thead>
-  
-        <tbody>
+        <tbody *ngIf="fichesPolice.length == 0 && !loading">
+          <tr>
+            <td colspan="8" align="center">Aucune donnée.</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="fichesPolice.length > 0 && !loading">
           <tr *ngFor="let fp of fichesPolice | paginate
           : {
               itemsPerPage: tableSize,
@@ -103,8 +108,8 @@
             <td class="py-2">{{ fp.ficp_nom }}</td>
             <td class="py-2">{{ fp.ficp_prenoms }}</td>
             <td class="py-2">{{ fp.ficp_tel }}</td>
-            <td class="py-2">{{ fp.ficp_datearriv }}</td>
-            <td class="py-2">{{ fp.ficp_datedep }}</td>
+            <td class="py-2">{{ fp.ficp_datearriv | date: 'dd/MM/yyyy' }}</td>
+            <td class="py-2">{{ fp.ficp_datedep | date: 'dd/MM/yyyy' }}</td>
             <td class="py-2">{{ fp.ficp_nationnalite }}</td>
             <td class="py-2" align="right">
               <button class="btn btn-outline-info btn-sm">
