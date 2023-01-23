@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NationaliteService } from 'src/app/services/nationalite.service';
 import { ProfilRechercheService } from 'src/app/services/profil-recherche/profil-recherche.service';
 import Swal from 'sweetalert2';
 
@@ -16,6 +17,7 @@ export class ProfilRechercheComponent implements OnInit {
   tableSizes: any = [5, 10, 15, 20];
 
   profilsRecherches: any[] = [];
+  nationalites: any[] = [];
   formGroup!: FormGroup;
   loading: boolean = false;
 
@@ -35,12 +37,16 @@ export class ProfilRechercheComponent implements OnInit {
   
   constructor(
     private formBuilder: FormBuilder,
+    private nationaliteService: NationaliteService,
     private profilRechercheService: ProfilRechercheService
   ) {}
 
   ngOnInit(): void {
     this.initForm();
-    this.getAllProfile();
+    this.nationalites = this.nationaliteService.nationalites;
+    if (this.showAddProfileScreen) {
+      this.getAllProfile();
+    }
   }
 
   initForm() {
@@ -121,5 +127,8 @@ export class ProfilRechercheComponent implements OnInit {
 
   changeScreen() {
     this.showAddProfileScreen = !this.showAddProfileScreen;
+    if (this.showAddProfileScreen) {
+      this.getAllProfile();
+    }
   }
 }

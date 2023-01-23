@@ -45,6 +45,10 @@
                 <label for="nationality" style="margin-top: 2px;" class="form-label font-weight-bold">Nationalité</label>
                 <select id="nationality" class="form-control" style="padding-block: 14px;">
                     <option value="" class="disabled">-- Sélectionner la nationalité ---</option>
+                    <option
+                    *ngFor="let nationalite of nationalites"
+                    [value]="nationalite | titlecase"
+                    >{{ nationalite | titlecase }}</option>
                 </select>
             </div>
 
@@ -84,7 +88,13 @@
                 <label for="nationality" class="form-label font-weight-bold">
                     Nationalité <span class="text-danger">*</span>
                 </label>
-                <input type="text" id="nationality" class="form-control" formControlName="nationalite">
+                <select id="nationality" class="form-control" style="padding-block: 14px;">
+                    <option value="" class="disabled">-- Sélectionner la nationalité ---</option>
+                    <option
+                    *ngFor="let nationalite of nationalites"
+                    [value]="nationalite | titlecase"
+                    >{{ nationalite | titlecase }}</option>
+                </select>
             </div>
 
             <div class="form-group col-2">
