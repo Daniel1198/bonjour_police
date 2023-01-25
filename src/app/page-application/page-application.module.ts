@@ -19,6 +19,7 @@ import { DashboardCommissariatComponent } from './dashboard-commissariat/dashboa
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoaderModule } from '../tpl/loader/loader.module';
+import { CorrespondanceProfilComponent } from './commissariat/correspondance-profil/correspondance-profil.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { LoaderModule } from '../tpl/loader/loader.module';
     AddCommissariatComponent,
     ProfilRechercheComponent,
     DashboardCommissariatComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    CorrespondanceProfilComponent
   ],
   imports: [
     CommonModule,

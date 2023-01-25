@@ -9,167 +9,328 @@ import * as Highcharts from 'highcharts';
 export class DashboardCommissariatComponent implements OnInit {
 
   highcharts = Highcharts;
-  chartOptionsPie: Highcharts.Options = {
+  chartOptionsHistogram: Highcharts.Options = {
     chart: {
-        type: 'pie',
-        plotShadow: false
+        type: 'column'
     },
     title: {
-        text: 'Statistiques par nationalité',
+        align: 'center',
+        text: 'Statistiques par mois',
         style: {
-          fontFamily: 'sans-serif',
-          fontSize: '20'
-        }
-    },
-    accessibility: {
-      point: {
-        valueSuffix: '%'
-      }
-    },
-    tooltip: {
-        pointFormat: '{series.name} : <b>{ point.percentage:1.f } % </b>',
-    },
-    plotOptions: {
-        pie: {
-          allowPointSelect: true,
-          cursor: 'pointer',
-          dataLabels: {
-            enabled: true,
-            format: '<b>{point.name}</b> : { point.percentage:1.f } %'
+            fontFamily: 'sans-serif',
+            fontSize: '20'
           }
-        }
-    },
-    series: [{
-      name: 'Brands',
-      colorByPoint: true,
-      type: 'pie',
-      data: [{
-          name: 'Chrome',
-          y: 70.67,
-          selected: true,
-          sliced: true
-      }, {
-          name: 'Edge',
-          y: 14.77
-      },  {
-          name: 'Firefox',
-          y: 4.86
-      }, {
-          name: 'Safari',
-          y: 2.63
-      }, {
-          name: 'Internet Explorer',
-          y: 1.53
-      },  {
-          name: 'Opera',
-          y: 1.40
-      }, {
-          name: 'Sogou Explorer',
-          y: 0.84
-      }, {
-          name: 'QQ',
-          y: 0.51
-      }, {
-          name: 'Other',
-          y: 2.6
-      }]
-  }]
-  };
-
-  categories = [
-    '0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-40', '40-45',
-    '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75-79', '80+'
-  ];
-
-  chartOptionsPyramid: Highcharts.Options = {
-      chart: {
-        type: 'bar'
-    },
-    title: {
-        text: 'Pyramide des âges',
-        style: {
-          fontFamily: 'sans-serif',
-          fontSize: '20'
-        }
     },
     accessibility: {
-        point: {
-            valueDescriptionFormat: '{index}. Age {xDescription}, {value}%.'
+        announceNewData: {
+            enabled: true
         }
     },
-    xAxis: [{
-        categories: this.categories,
-        reversed: false,
-        labels: {
-            step: 1
-        },
-        accessibility: {
-            description: 'Age (male)'
-        }
-    }, { // mirror axis on right side
-        opposite: true,
-        reversed: false,
-        categories: this.categories,
-        linkedTo: 0,
-        labels: {
-            step: 1
-        },
-        accessibility: {
-            description: 'Age (female)'
-        }
-    }],
+    xAxis: {
+        type: 'category'
+    },
     yAxis: {
         title: {
-            text: null
-        },
-        labels: {
-            formatter: function () {
-                return Math.abs(5) + '%';
-            }
-        },
-        accessibility: {
-            description: 'Percentage population',
-            rangeDescription: 'Range: 0 to 5%'
+            text: 'Total percent market share'
         }
-    },
 
+    },
+    legend: {
+        enabled: false
+    },
     plotOptions: {
         series: {
-            stacking: 'normal'
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}%'
+            }
         }
     },
 
     tooltip: {
-        formatter: function () {
-            return '<b>' + this.series.name + ', age ' + this.point.category + '</b><br/>' +
-                'Population: ' + Highcharts.numberFormat(Math.abs(3), 1) + '%';
-        }
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
     },
 
-    series: [{
-        name: 'Homme',
-        type: 'bar',
-        data: [
-            -8.98, -7.52, -6.65, -5.72, -4.85,
-            -3.71, -2.76, -2.07, -1.70, -1.47,
-            -1.22, -0.99, -0.81, -0.62, -0.41,
-            -0.23, -0.15
+    series: [
+        {
+            name: 'Browsers',
+            colorByPoint: true,
+            type: 'column',
+            data: [
+                {
+                    name: 'Chrome',
+                    y: 63.06,
+                    drilldown: 'Chrome'
+                },
+                {
+                    name: 'Safari',
+                    y: 19.84,
+                    drilldown: 'Safari'
+                },
+                {
+                    name: 'Firefox',
+                    y: 4.18,
+                    drilldown: 'Firefox'
+                },
+                {
+                    name: 'Edge',
+                    y: 4.12,
+                    drilldown: 'Edge'
+                },
+                {
+                    name: 'Opera',
+                    y: 2.33,
+                    drilldown: 'Opera'
+                },
+                {
+                    name: 'Internet Explorer',
+                    y: 0.45,
+                    drilldown: 'Internet Explorer'
+                }
+            ]
+        }
+    ],
+    drilldown: {
+        breadcrumbs: {
+            position: {
+                align: 'right'
+            }
+        },
+        series: [
+            {
+                name: 'Chrome',
+                id: 'Chrome',
+                type: 'column',
+                data: [
+                    [
+                        'v65.0',
+                        0.1
+                    ],
+                    [
+                        'v64.0',
+                        1.3
+                    ],
+                    [
+                        'v63.0',
+                        53.02
+                    ],
+                    [
+                        'v62.0',
+                        1.4
+                    ],
+                    [
+                        'v61.0',
+                        0.88
+                    ],
+                    [
+                        'v60.0',
+                        0.56
+                    ],
+                    [
+                        'v59.0',
+                        0.45
+                    ],
+                    [
+                        'v58.0',
+                        0.49
+                    ],
+                    [
+                        'v57.0',
+                        0.32
+                    ],
+                    [
+                        'v56.0',
+                        0.29
+                    ],
+                    [
+                        'v55.0',
+                        0.79
+                    ],
+                    [
+                        'v54.0',
+                        0.18
+                    ],
+                    [
+                        'v51.0',
+                        0.13
+                    ],
+                    [
+                        'v49.0',
+                        2.16
+                    ],
+                    [
+                        'v48.0',
+                        0.13
+                    ],
+                    [
+                        'v47.0',
+                        0.11
+                    ],
+                    [
+                        'v43.0',
+                        0.17
+                    ],
+                    [
+                        'v29.0',
+                        0.26
+                    ]
+                ]
+            },
+            {
+                name: 'Firefox',
+                id: 'Firefox',
+                type: 'column',
+                data: [
+                    [
+                        'v58.0',
+                        1.02
+                    ],
+                    [
+                        'v57.0',
+                        7.36
+                    ],
+                    [
+                        'v56.0',
+                        0.35
+                    ],
+                    [
+                        'v55.0',
+                        0.11
+                    ],
+                    [
+                        'v54.0',
+                        0.1
+                    ],
+                    [
+                        'v52.0',
+                        0.95
+                    ],
+                    [
+                        'v51.0',
+                        0.15
+                    ],
+                    [
+                        'v50.0',
+                        0.1
+                    ],
+                    [
+                        'v48.0',
+                        0.31
+                    ],
+                    [
+                        'v47.0',
+                        0.12
+                    ]
+                ]
+            },
+            {
+                name: 'Internet Explorer',
+                id: 'Internet Explorer',
+                type: 'column',
+                data: [
+                    [
+                        'v11.0',
+                        6.2
+                    ],
+                    [
+                        'v10.0',
+                        0.29
+                    ],
+                    [
+                        'v9.0',
+                        0.27
+                    ],
+                    [
+                        'v8.0',
+                        0.47
+                    ]
+                ]
+            },
+            {
+                name: 'Safari',
+                id: 'Safari',
+                type: 'column',
+                data: [
+                    [
+                        'v11.0',
+                        3.39
+                    ],
+                    [
+                        'v10.1',
+                        0.96
+                    ],
+                    [
+                        'v10.0',
+                        0.36
+                    ],
+                    [
+                        'v9.1',
+                        0.54
+                    ],
+                    [
+                        'v9.0',
+                        0.13
+                    ],
+                    [
+                        'v5.1',
+                        0.2
+                    ]
+                ]
+            },
+            {
+                name: 'Edge',
+                id: 'Edge',
+                type: 'column',
+                data: [
+                    [
+                        'v16',
+                        2.6
+                    ],
+                    [
+                        'v15',
+                        0.92
+                    ],
+                    [
+                        'v14',
+                        0.4
+                    ],
+                    [
+                        'v13',
+                        0.1
+                    ]
+                ]
+            },
+            {
+                name: 'Opera',
+                id: 'Opera',
+                type: 'column',
+                data: [
+                    [
+                        'v50.0',
+                        0.96
+                    ],
+                    [
+                        'v49.0',
+                        0.82
+                    ],
+                    [
+                        'v12.1',
+                        0.14
+                    ]
+                ]
+            }
         ]
-    }, {
-        name: 'Femme',
-        type: 'bar',
-        data: [
-            8.84, 7.42, 6.57, 5.68, 4.83,
-            3.74, 2.80, 2.14, 1.79, 1.59,
-            1.34, 1.06, 0.83, 0.63, 0.43,
-            0.25, 0.19
-        ]
-    }]
+    }
   };
+  libelle!: string;
+  nowDate: Date = new Date();
   
   constructor() { }
 
   ngOnInit(): void {
+    this.libelle = localStorage.getItem('user_heb_commissariat')!;
   }
 
 }

@@ -69,6 +69,7 @@ export class FichePoliceComponent implements OnInit {
       response => {
         this.loading = false;
         this.fichesPolice = response.results;
+        this.page = 1;
       }
     )
   }

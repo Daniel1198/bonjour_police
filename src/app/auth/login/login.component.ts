@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   UtilPremiereCnx: any;
   item: any = localStorage.getItem('Util_PremiereCnx');
   reponse: any;
+  profile: any;
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
@@ -62,9 +63,14 @@ export class LoginComponent implements OnInit {
     this.authService.login(loginFormData).subscribe(
       (result) => {
         this.reponse = result;
-        console.log(result);
       //   this.router.navigate(['/admin/dashboard']);
-        window.location.href = '/admin/dashboard';
+        this.profile = localStorage.getItem('prof_id');
+        if (this.profile == 2 || this.profile == 1) {
+          window.location.href = '/admin/dashboard';
+        }
+        else {
+          window.location.href = '/admin/commissariat/dashboard';
+        }
         /* this.UtilPremiereCnx = JSON.parse(this.item);
         alert(this.reponse);
         if (this.UtilPremiereCnx == 1) {

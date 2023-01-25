@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FichePoliceService } from 'src/app/services/fiche-police/fiche-police.service';
 import { NationaliteService } from 'src/app/services/nationalite.service';
 import { ProfilRechercheService } from 'src/app/services/profil-recherche/profil-recherche.service';
 import Swal from 'sweetalert2';
@@ -17,9 +18,12 @@ export class ProfilRechercheComponent implements OnInit {
   tableSizes: any = [5, 10, 15, 20];
 
   profilsRecherches: any[] = [];
+  fichesPolice: any[] = [];
+  data: any[] = [];
   nationalites: any[] = [];
   formGroup!: FormGroup;
   loading: boolean = false;
+  nowDate: Date = new Date();
 
   showAddProfileScreen: boolean = false;
 
@@ -38,15 +42,15 @@ export class ProfilRechercheComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private nationaliteService: NationaliteService,
-    private profilRechercheService: ProfilRechercheService
+    private profilRechercheService: ProfilRechercheService,
+    private fichePoliceService: FichePoliceService
   ) {}
 
   ngOnInit(): void {
     this.initForm();
     this.nationalites = this.nationaliteService.nationalites;
-    if (this.showAddProfileScreen) {
-      this.getAllProfile();
-    }
+    this.getAllProfile();
+    this.getAllFiche();
   }
 
   initForm() {
@@ -55,9 +59,20 @@ export class ProfilRechercheComponent implements OnInit {
       nomPrenom: ['', Validators.required],
       genre: ['', Validators.required],
       nationalite: ['', Validators.required],
-      ageMin: ['', Validators.required, Validators.max(100), Validators.min(0)],
+      ageMin: ['', [Validators.required, Validators.max(100), Validators.min(0)]],
       ageMax: ['', [Validators.required, Validators.max(100), Validators.min(0)]],
     });
+  }
+
+  getAllFiche() {
+    this.loading = true;
+    this.fichePoliceService.listeFichePolice().subscribe(
+      response => {
+        this.loading = false;
+        this.data = response.results;
+        this.fichesPolice = response.results;
+      }
+    )
   }
 
   onSubmit() {
@@ -116,19 +131,47 @@ export class ProfilRechercheComponent implements OnInit {
 
   onTableDataChange(event: any) {
     this.page = event;
-    this.profilsRecherches;
+    this.showAddProfileScreen ? this.profilsRecherches : this.fichesPolice;
   }
 
   onTableSizeChange(event: any): void {
     this.tableSize = event.target.value;
     this.page = 1;
-    this.profilsRecherches;
+    this.showAddProfileScreen ? this.profilsRecherches : this.fichesPolice;
   }
 
   changeScreen() {
     this.showAddProfileScreen = !this.showAddProfileScreen;
-    if (this.showAddProfileScreen) {
-      this.getAllProfile();
+    this.page = 1;
+  }
+
+  getTime(date: Date): number {
+    const d = new Date(date);
+    return d.getTime();
+  }
+
+  onSearch(name: string, nationalite: string) {
+    if (name.trim() && !nationalite) {
+      this.fichesPolice = this.data.filter(fp => {
+        let nomPrenom = fp.ficp_nom + ' ' + fp.ficp_prenoms;
+        return nomPrenom.toLowerCase().includes(name.toLowerCase())
+      })
     }
+    else if (name.trim() && nationalite) {
+      this.fichesPolice = this.data.filter(fp => {
+        let nomPrenom = fp.ficp_nom + ' ' + fp.ficp_prenoms;
+        return nomPrenom.toLowerCase().includes(name.toLowerCase()) && 
+          fp.ficp_nationnalite.toLowerCase().trim() == nationalite.toLowerCase().trim()
+      })
+    }
+    else if (!name.trim() && nationalite) {
+      this.fichesPolice = this.data.filter(fp => {
+        return fp.ficp_nationnalite.toLowerCase().trim() == nationalite.toLowerCase().trim()
+      })
+    }
+    else {
+      this.getAllFiche();
+    }
+    this.page = 1;
   }
 }

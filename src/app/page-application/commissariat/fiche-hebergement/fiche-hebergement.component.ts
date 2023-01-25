@@ -19,6 +19,7 @@ export class FicheHebergementComponent implements OnInit {
   fichesPolice: any[] = [];
   hebergeurs: any[] = [];
   ville: any;
+  profile: any;
   
   constructor(
     private fichePoliceService: FichePoliceService,
@@ -26,6 +27,7 @@ export class FicheHebergementComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.profile = localStorage.getItem('prof_id')!;
     this.ville = localStorage.getItem('user_heb_ville');
     const day = this.nowDate.getDate() < 10 ? '0' + this.nowDate.getDate() : this.nowDate.getDate();
     const month = this.nowDate.getMonth() < 10 ? '0' + this.nowDate.getMonth() + 1 : this.nowDate.getMonth() + 1;
@@ -41,6 +43,7 @@ export class FicheHebergementComponent implements OnInit {
       response => {
         this.loading = false;
         this.fichesPolice = response.results;
+        this.page = 1;
       }
     )
   }
@@ -51,11 +54,20 @@ export class FicheHebergementComponent implements OnInit {
   }
 
   getHotelsByCity() {
-    this.hebergeurService.hebergeurParVille(this.ville).subscribe(
-      response => {
-        this.hebergeurs = response.results;
-      }
-    );
+    if (+this.profile == 1) {
+      this.hebergeurService.listeHebergeur().subscribe(
+        response => {
+          this.hebergeurs = response.results;
+        }
+      );
+    }
+    else {
+      this.hebergeurService.hebergeurParVille(this.ville).subscribe(
+        response => {
+          this.hebergeurs = response.results;
+        }
+      );
+    }
   }
 
   changeSize(value: string) {

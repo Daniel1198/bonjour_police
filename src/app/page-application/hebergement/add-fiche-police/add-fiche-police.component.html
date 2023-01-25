@@ -49,7 +49,13 @@
   
           <div class="col-6 form-group">
             <label for="nationality"><strong>Nationalité (Nationality) <span class="text-danger">*</span></strong></label>
-            <input type="text" id="nationality" class="form-control" placeholder="Ivoirienne" formControlName="nationalite">
+            <select #nationality id="nationality" class="form-control" style="padding-block: 14px;" formControlName="nationalite">
+              <option value="" class="disabled">-- Sélectionner la nationalité ---</option>
+              <option
+              *ngFor="let nationalite of nationalites"
+              [value]="nationalite | titlecase"
+              >{{ nationalite | titlecase }}</option>
+            </select>
           </div>
   
           <div class="col-6 form-group">
@@ -111,7 +117,13 @@
   
           <div class="col-6 form-group">
             <label for="nationality"><strong>Nationalité (Nationality)</strong></label>
-            <input type="text" id="nationality" class="form-control" placeholder="Ivoirienne" formControlName="nationalite">
+            <select #nationality id="nationality" class="form-control" style="padding-block: 14px;" formControlName="nationalite">
+              <option value="" class="disabled">-- Sélectionner la nationalité ---</option>
+              <option
+              *ngFor="let nationalite of nationalites"
+              [value]="nationalite | titlecase"
+              >{{ nationalite | titlecase }}</option>
+            </select>
           </div>
 
           <div class="m-auto" *ngIf="loading">

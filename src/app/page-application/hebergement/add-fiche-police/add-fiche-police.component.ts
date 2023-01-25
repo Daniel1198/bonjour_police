@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { FichePoliceService } from 'src/app/services/fiche-police/fiche-police.service';
+import { NationaliteService } from 'src/app/services/nationalite.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,6 +14,7 @@ export class AddFichePoliceComponent implements OnInit {
   formGroup!: FormGroup;
   loading: boolean = false;
   hebId!: string;
+  nationalites: any[] = [];
 
   Toast = Swal.mixin({
     toast: true,
@@ -29,12 +30,14 @@ export class AddFichePoliceComponent implements OnInit {
 
   constructor(
     private fichePoliceService: FichePoliceService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private nationaliteService: NationaliteService,
   ) { }
 
   ngOnInit(): void {
     this.hebId = localStorage.getItem('user_heb_id')!;
     this.initForm();
+    this.nationalites = this.nationaliteService.nationalites;
   }
 
   initForm() {
@@ -90,8 +93,9 @@ export class AddFichePoliceComponent implements OnInit {
         if (response.statut) {
           this.Toast.fire({
             icon: 'success',
-            title: response.message
+            title: 'Fiche créée avec succès.'
           })
+          this.formGroup.reset();
         }
         else {
           this.Toast.fire({
