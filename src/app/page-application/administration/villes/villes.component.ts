@@ -21,6 +21,7 @@ export class VillesComponent implements OnInit {
   showAddCity: boolean = false;
   loading: boolean = false;
   formGroup!: FormGroup;
+  update: boolean = false;
 
   Toast = Swal.mixin({
     toast: true,
@@ -63,30 +64,106 @@ export class VillesComponent implements OnInit {
   }
 
   onSubmit() {
-    this.loading = true;
-
+  
     const formData = new FormData();
     formData.append('vil_id', this.formGroup.get('id')?.value);
     formData.append('vil_ville', this.formGroup.get('libelle')?.value);
 
-    this.villeService.nouvelleVille(formData).subscribe(
-      response => {
-        if (response.statut) {
-          this.Toast.fire({
-            icon: 'success',
-            title: response.message
-          })
-          this.formGroup.reset()
-          this.getAllCities()
+    if (!this.update) {
+      this.villeService.nouvelleVille(formData).subscribe(
+        response => {
+          this.loading = true;
+          if (response.statut) {
+            this.Toast.fire({
+              icon: 'success',
+              title: response.message
+            })
+            this.formGroup.reset()
+            this.getAllCities()
+          }
+          else {
+            this.Toast.fire({
+              icon: 'error',
+              title: response.message
+            })
+          }
         }
-        else {
-          this.Toast.fire({
-            icon: 'error',
-            title: response.message
-          })
+      );
+    }
+    else {
+      Swal.fire({
+        title: 'Confirmez-vous les modifications apportées ?',
+        showDenyButton: true,
+        confirmButtonText: 'Oui',
+        denyButtonText: `Non`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.loading = true;
+          this.villeService.modifierVille(formData).subscribe(
+            response => {
+              this.loading = false;
+              if (response.statut) {
+                this.Toast.fire({
+                  icon: 'success',
+                  title: response.message
+                })
+                this.formGroup.reset();
+                this.getAllCities();
+              }
+              else {
+                this.Toast.fire({
+                  icon: 'error',
+                  title: response.message
+                })
+              }
+            }
+          );
         }
+      })
+    }
+  }
+
+  onUpdate(ville: any) {
+    this.showAddCity = true;
+    this.update = true;
+    this.formGroup.patchValue({
+      id: ville.vil_id,
+      libelle: ville.vil_ville
+    })
+  }
+
+  onDelete(id: number) {
+    Swal.fire({
+      title: 'Voulez-vous vraiment supprimer cette ville ?',
+      showDenyButton: true,
+      confirmButtonText: 'Oui',
+      denyButtonText: `Non`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.villeService.supprimerVille(id).subscribe(
+          response => {
+            this.loading = false;
+            if (response.success) {
+              this.Toast.fire({
+                icon: 'success',
+                title: response.message
+              })
+            }
+            this.getAllCities();
+          }
+        );
       }
-    );
+    })
+  }
+
+  onCancel() {
+    if (this.update) {
+      this.update = false;
+      this.formGroup.reset();
+    }
   }
 
   onSearch(search: string) {
@@ -117,6 +194,11 @@ export class VillesComponent implements OnInit {
   }
 
   changeScreen() {
+    this.getAllCities();
     this.showAddCity = !this.showAddCity;
+    if (this.update) {
+      this.update = false;
+      this.formGroup.reset();
+    }
   }
 }

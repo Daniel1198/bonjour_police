@@ -49,7 +49,7 @@ export class AddFichePoliceComponent implements OnInit {
       domicile: ['', Validators.required],
       nationalite: ['', Validators.required],
       telephone: ['', Validators.required],
-      email: ['', Validators.email],
+      email: [''],
       dateArrivee: ['', Validators.required],
       dateDepart: ['', Validators.required],
       hebergeur: [this.hebId],

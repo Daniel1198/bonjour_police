@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddCommissariatComponent } from './administration/add-commissariat/add-commissariat.component';
+import { AddHebergeurComponent } from './administration/add-hebergeur/add-hebergeur.component';
 import { CommissariatComponent } from './administration/commissariat/commissariat.component';
 import { HebergementsComponent } from './administration/hebergements/hebergements.component';
 import { VillesComponent } from './administration/villes/villes.component';
@@ -28,9 +29,10 @@ const routes: Routes = [
   { path: 'commissariat/correspondance-profil', component: CorrespondanceProfilComponent },
 
   { path: 'administration/commissariats', component: CommissariatComponent },
-  { path: 'administration/add-commissariat', component: AddCommissariatComponent },
+  { path: 'administration/add-commissariat/:id', component: AddCommissariatComponent },
   { path: 'administration/villes', component: VillesComponent },
   { path: 'administration/hebergements', component: HebergementsComponent },
+  { path: 'administration/add-hebergeur/:id', component: AddHebergeurComponent },
 
 ];
 

@@ -35,17 +35,22 @@
 
     <div class="p-2 border mt-3 rounded w3-animate-left" *ngIf="showAddCity">
       <div class="border-bottom text-danger p-2 mb-3">
-        <b>Nouvelle ville</b>
+        <b>{{ update ? 'Modifier la ville' : 'Nouvelle ville' }}</b>
       </div>
     
       <form class="row px-5" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-        <div class="col-9 px-2 form-group">
+        <div class="col-6 px-2 form-group">
           <input type="text" class="form-control" placeholder="Intitulé..." formControlName="libelle">
         </div>
     
         <div class="col-3 px-2 form-group d-flex align-items-end">
           <button class="btn btn-success w-100" style="margin-bottom: 1px;" [disabled]="formGroup.invalid">
-            Ajouter
+            {{ update ? 'Modifier' : 'Ajouter' }}
+          </button>
+        </div>
+        <div class="col-3 px-2 form-group d-flex align-items-end">
+          <button type="button" class="btn btn-danger w-100" style="margin-bottom: 1px;" (click)="onCancel()">
+            Annuler
           </button>
         </div>
       </form>
@@ -78,10 +83,10 @@
             <td class="py-1">{{ ville.vil_id }}</td>
             <td>{{ ville.vil_ville }}</td>
             <td align="right" class="py-1">
-              <button class="btn btn-outline-info btn-sm">
+              <button class="btn btn-outline-info btn-sm" (click)="onUpdate(ville)">
                 <span class="typcn typcn-edit"></span>
               </button>
-              <button class="btn btn-outline-danger btn-sm ml-3">
+              <button class="btn btn-outline-danger btn-sm ml-3" (click)="onDelete(ville.vil_id)">
                 <span class="typcn typcn-trash"></span>
               </button>
             </td>

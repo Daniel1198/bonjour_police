@@ -24,7 +24,15 @@ export class CommissariatService {
     return this.httpClient.post<any>(this.urlG + '/commissariat/ajout.php', commissariat);
   }
 
+  modifierCommissariat(commissariat: any): Observable<any> {
+    return this.httpClient.post<any>(this.urlG + '/commissariat/ajout.php', commissariat);
+  }
+
   listeCommissariat(): Observable<any> {
     return this.httpClient.get<any>(this.urlG + '/commissariat/commissariat_liste.php');
+  }
+
+  supprimerCommissariat(id: number): Observable<any> {
+    return this.httpClient.get<any>(this.urlG + '/commissariat/commissariat_liste.php?id=' + id);
   }
 }

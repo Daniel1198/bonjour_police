@@ -20,6 +20,18 @@ export class HebergementsComponent implements OnInit {
   data: any[] = [];
   loading: boolean = false;
 
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+
   constructor(
     private villeService: VilleService,
     private hebergeurService: HebergeurService
@@ -69,6 +81,32 @@ export class HebergementsComponent implements OnInit {
       this.getAllHotels();
     }
     this.page = 1;
+  }
+
+  onDelete(id: number) {
+    Swal.fire({
+      title: 'Voulez-vous vraiment supprimer cet hébergeur ?',
+      showDenyButton: true,
+      confirmButtonText: 'Oui',
+      denyButtonText: `Non`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.hebergeurService.supprimerHebergeur(id).subscribe(
+          response => {
+            this.loading = false;
+            if (response.success) {
+              this.Toast.fire({
+                icon: 'success',
+                title: response.message
+              })
+            }
+            this.getAllCities();
+          }
+        );
+      }
+    })
   }
 
   getAllHotels() {

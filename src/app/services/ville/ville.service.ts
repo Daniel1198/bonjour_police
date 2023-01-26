@@ -23,4 +23,12 @@ export class VilleService {
   nouvelleVille(ville: any): Observable<any> {
     return this.httpClient.post<any>(this.urlG + '/ville/ajout.php', ville);
   }
+
+  supprimerVille(id: number): Observable<any> {
+    return this.httpClient.get<any>(this.urlG + '/ville/ville_liste.php?id=' + id);
+  }
+
+  modifierVille(ville: any): Observable<any> {
+    return this.httpClient.post<any>(this.urlG + '/ville/ajout.php', ville);
+  }
 }

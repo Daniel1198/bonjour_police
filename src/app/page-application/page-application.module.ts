@@ -20,6 +20,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoaderModule } from '../tpl/loader/loader.module';
 import { CorrespondanceProfilComponent } from './commissariat/correspondance-profil/correspondance-profil.component';
+import { AddHebergeurComponent } from './administration/add-hebergeur/add-hebergeur.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { CorrespondanceProfilComponent } from './commissariat/correspondance-pro
     ProfilRechercheComponent,
     DashboardCommissariatComponent,
     ResetPasswordComponent,
-    CorrespondanceProfilComponent
+    CorrespondanceProfilComponent,
+    AddHebergeurComponent
   ],
   imports: [
     CommonModule,

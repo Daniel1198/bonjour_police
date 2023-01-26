@@ -20,12 +20,20 @@ export class HebergeurService {
     return this.httpClient.post<any>(this.urlG + '/hebergeur/ajout.php', hebergeur);
   }
 
+  modifierHebergeur(hebergeur: any): Observable<any> {
+    return this.httpClient.post<any>(this.urlG + '/hebergeur/ajout.php', hebergeur);
+  }
+
   hebergeurParVille(ville: string): Observable<any> {
     return this.httpClient.get<any>(this.urlG + '/hebergeur/liste_par_ville.php?heb_ville=' + ville);
   }
 
   listeHebergeur(): Observable<any> {
     return this.httpClient.get<any>(this.urlG + '/hebergeur/liste.php');
+  }
+
+  supprimerHebergeur(id: number): Observable<any> {
+    return this.httpClient.get<any>(this.urlG + '/hebergeur/liste.php?id=' + id);
   }
 
 }

@@ -27,35 +27,25 @@
 
         <div class="row px-5">
             
-            <div class="col-6 px-2 form-group">
-                <label for="name" style="margin-top: 2px;" class="form-label font-weight-bold">Nom & prénom(s)</label>
-                <input #name type="text" id="name" class="form-control">
+            <div class="col-7 px-2 form-group">
+                <label for="name" style="margin-top: 2px;" class="form-label font-weight-bold">Affinez vos recherches</label>
+                <input #search type="text" id="name" class="form-control" (input)="onSearch(search.value, nationality.value)">
             </div>
 
-            <!-- <div class="col-3 px-2 form-group">
-                <label for="sex" style="margin-top: 2px;" class="form-label font-weight-bold">Genre</label>
-                <select #genre id="sex" class="form-control" style="padding-block: 14px;">
-                    <option value="" class="disabled">-- Sélectionner le genre ---</option>
-                    <option value="M">Masculin</option>
-                    <option value="F">Féminin</option>
-                </select>
-            </div> -->
-
-            <div class="col-4 px-2 form-group">
+            <div class="col-5 px-2 form-group">
                 <label for="nationality" style="margin-top: 2px;" class="form-label font-weight-bold">Nationalité</label>
-                <select #nationality id="nationality" class="form-control" style="padding-block: 14px;">
+                <select 
+                #nationality 
+                id="nationality" 
+                class="form-control" 
+                style="padding-block: 14px;"
+                (change)="onSearch(search.value, nationality.value)">
                     <option value="">-- Toutes les nationalités ---</option>
                     <option
                     *ngFor="let nationalite of nationalites"
                     [value]="nationalite | titlecase"
                     >{{ nationalite | titlecase }}</option>
                 </select>
-            </div>
-
-            <div class="col-2 px-2 form-group d-flex align-items-end">
-                <button class="btn btn-info w-100" style="margin-bottom: 1px;" (click)="onSearch(name.value, nationality.value)">
-                    Rechercher
-                </button>
             </div>
         </div>
     </div>
@@ -122,6 +112,9 @@
             </div>
 
             <div class="col-12 mb-3 text-right">
+                <button type="button" class="btn btn-danger mr-3" (click)="onCancel()">
+                    Annuler
+                </button>
                 <button class="btn btn-success" [disabled]="formGroup.invalid">
                     Enregistrer
                 </button>
@@ -142,6 +135,9 @@
                     <th class="py-3"><span class="typcn typcn-calendar"></span> Date d'arrivée.</th>
                     <th class="py-3"><span class="typcn typcn-calendar"></span> Date de départ.</th>
                     <th class="py-3"><span class="typcn typcn-business-card"></span> Nationalité.</th>
+                    <th class="py-3">Hébergeur.</th>
+                    <th class="py-3">Ville.</th>
+                    <th class="py-3">Commissariat.</th>
                     <th class="py-3"></th>
                   </tr>
                 </thead>
@@ -170,6 +166,9 @@
                     <td class="py-2">{{ fp.ficp_datearriv | date: 'dd/MM/yyyy' }}</td>
                     <td class="py-2">{{ fp.ficp_datedep | date: 'dd/MM/yyyy' }}</td>
                     <td class="py-2">{{ fp.ficp_nationnalite }}</td>
+                    <td class="py-2">{{ fp.heb_designation }}</td>
+                    <td class="py-2">{{ fp.heb_ville }}</td>
+                    <td class="py-2">{{ fp.heb_commissariat }}</td>
                     <td class="py-2" align="right">
                       <button class="btn btn-outline-info btn-sm">
                         <span class="typcn typcn-eye-outline"></span>
@@ -183,7 +182,7 @@
                 <thead>
                     <tr class="text-white" style="background-color: #1b1b29;">
                         <th class="py-3">Nom & Prénom(s).</th>
-                        <th class="py-3">Âge.</th>
+                        <th class="py-3">Intervalle d'âge.</th>
                         <th class="py-3">Nationalité.</th>
                         <th class="py-3"></th>
                     </tr>
@@ -205,10 +204,10 @@
                         <td class="py-2">[{{ pr.prf_agedeb + ' - ' + pr.prf_agefin}}]</td>
                         <td class="py-2">{{ pr.prf_nationnalite }}</td>
                         <td class="py-2" align="right">
-                            <button class="btn btn-outline-info btn-sm">
+                            <button class="btn btn-outline-info btn-sm" (click)="onUpdate(pr)">
                                 <span class="typcn typcn-edit"></span>
                             </button>
-                            <button class="btn btn-outline-danger btn-sm ml-3">
+                            <button class="btn btn-outline-danger btn-sm ml-3" (click)="onDelete(pr.prf_id)">
                                 <span class="typcn typcn-trash"></span>
                             </button>
                         </td>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommissariatService } from 'src/app/services/commissariat/commissariat.service';
 import { VilleService } from 'src/app/services/ville/ville.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-commissariat',
@@ -18,6 +19,18 @@ export class CommissariatComponent implements OnInit {
   data: any[] = [];
   villes: any[] = [];
   loading: boolean = false;
+
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
 
   constructor(
     private villeService: VilleService,
@@ -46,6 +59,32 @@ export class CommissariatComponent implements OnInit {
         this.villes = response.results;
       }
     );
+  }
+
+  onDelete(id: number) {
+    Swal.fire({
+      title: 'Voulez-vous vraiment supprimer ce commissariat ?',
+      showDenyButton: true,
+      confirmButtonText: 'Oui',
+      denyButtonText: `Non`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.commissariatService.supprimerCommissariat(id).subscribe(
+          response => {
+            this.loading = false;
+            if (response.success) {
+              this.Toast.fire({
+                icon: 'success',
+                title: response.message
+              })
+            }
+            this.getAllPolices();
+          }
+        );
+      }
+    })
   }
 
   onSearch(search: string, city: string) {

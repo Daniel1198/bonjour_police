@@ -20,7 +20,15 @@ export class ProfilRechercheService {
     return this.httpClient.post<any>(this.urlG + '/commissariat/ajoutProfilerecherche.php', profil);
   }
 
+  modifierProfilRecherche(profil: any): Observable<any> {
+    return this.httpClient.post<any>(this.urlG + '/commissariat/ajoutProfilerecherche.php', profil);
+  }
+
   listeProfilRecherche(): Observable<any> {
     return this.httpClient.get<any>(this.urlG + '/commissariat/profilerechercheliste.php');
+  }
+
+  supprimerProfilRecherche(id: number): Observable<any> {
+    return this.httpClient.get<any>(this.urlG + '/commissariat/profilerechercheliste.php?id=' + id);
   }
 }

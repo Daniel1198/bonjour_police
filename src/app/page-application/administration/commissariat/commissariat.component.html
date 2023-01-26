@@ -6,7 +6,7 @@
       </div>
   
       <div>
-        <button class="btn btn-info btn-sm mat-elevation-z2" routerLink="/admin/administration/add-commissariat">
+        <button class="btn btn-info btn-sm mat-elevation-z2" routerLink="/admin/administration/add-commissariat/0">
           <span class="typcn typcn-plus"></span>
           Nouveau
         </button>
@@ -71,10 +71,10 @@
             <td class="py-2">{{ commissariat.com_cel }}</td>
             <td class="py-2">{{ commissariat.com_commissaire }}</td>
             <td class="py-2" align="right">
-              <button class="btn btn-outline-info btn-sm">
+              <button class="btn btn-outline-info btn-sm" [routerLink]="['/admin/administration/add-commissariat', commissariat.com_id]">
                 <span class="typcn typcn-edit"></span>
               </button>
-              <button class="btn btn-outline-danger btn-sm ml-3">
+              <button class="btn btn-outline-danger btn-sm ml-3" (click)="onDelete(commissariat.com_id)">
                 <span class="typcn typcn-trash"></span>
               </button>
             </td>

@@ -24,6 +24,7 @@ export class ProfilRechercheComponent implements OnInit {
   formGroup!: FormGroup;
   loading: boolean = false;
   nowDate: Date = new Date();
+  update: boolean = false;
 
   showAddProfileScreen: boolean = false;
 
@@ -75,6 +76,13 @@ export class ProfilRechercheComponent implements OnInit {
     )
   }
 
+  onCancel() {
+    if (this.update) {
+      this.update = false;
+      this.formGroup.reset()
+    }
+  }
+
   onSubmit() {
     if (this.formGroup.get('ageMin')?.value > this.formGroup.get('ageMax')?.value) {
       this.Toast.fire({
@@ -83,7 +91,6 @@ export class ProfilRechercheComponent implements OnInit {
       })
     }
     else {
-      this.loading = true;
       const formprofilsRecherches = new FormData();
 
       formprofilsRecherches.append('prf_id', this.formGroup.get('id')?.value);
@@ -93,26 +100,98 @@ export class ProfilRechercheComponent implements OnInit {
       formprofilsRecherches.append('prf_agedeb', this.formGroup.get('ageMin')?.value);
       formprofilsRecherches.append('prf_agefin', this.formGroup.get('ageMax')?.value);
 
-      this.profilRechercheService.nouveauProfilRecherche(formprofilsRecherches).subscribe(
-        response => {
-          this.loading = false;
-          if (response.statut) {
-            this.Toast.fire({
-              icon: 'success',
-              title: response.message
-            })
-            this.formGroup.reset();
+      if (!this.update) {
+        this.profilRechercheService.nouveauProfilRecherche(formprofilsRecherches).subscribe(
+          response => {
+            this.loading = false;
+            if (response.statut) {
+              this.Toast.fire({
+                icon: 'success',
+                title: response.message
+              })
+              this.formGroup.reset();
+              this.getAllProfile();
+            }
+            else {
+              this.Toast.fire({
+                icon: 'error',
+                title: response.message
+              })
+            }
+          }
+        );
+      }
+      else {
+        Swal.fire({
+          title: 'Confirmez-vous les modifications apportées ?',
+          showDenyButton: true,
+          confirmButtonText: 'Oui',
+          denyButtonText: `Non`,
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            this.loading = true;
+            this.profilRechercheService.modifierProfilRecherche(formprofilsRecherches).subscribe(
+              response => {
+                this.loading = false;
+                if (response.statut) {
+                  this.Toast.fire({
+                    icon: 'success',
+                    title: response.message
+                  })
+                  this.formGroup.reset();
+                  this.getAllProfile();
+                }
+                else {
+                  this.Toast.fire({
+                    icon: 'error',
+                    title: response.message
+                  })
+                }
+              }
+            );
+          }
+        })
+      }
+    }
+  }
+
+  onUpdate(profil: any) {
+    this.update = true;
+    this.formGroup.patchValue({
+      id: profil.prf_id,
+      nomPrenom: profil.prf_nomprenoms,
+      genre: profil.prf_genre,
+      nationalite: profil.prf_nationnalite,
+      ageMin: profil.prf_agedeb,
+      ageMax: profil.prf_agefin,
+    })
+  }
+
+  onDelete(id: number) {
+    Swal.fire({
+      title: 'Voulez-vous vraiment supprimer ce profil ?',
+      showDenyButton: true,
+      confirmButtonText: 'Oui',
+      denyButtonText: `Non`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.loading = true;
+        this.profilRechercheService.supprimerProfilRecherche(id).subscribe(
+          response => {
+            this.loading = false;
+            if (response.success) {
+              this.Toast.fire({
+                icon: 'success',
+                title: response.message
+              })
+            }
             this.getAllProfile();
           }
-          else {
-            this.Toast.fire({
-              icon: 'error',
-              title: response.message
-            })
-          }
-        }
-      );
-    }
+        );
+      }
+    })
   }
 
   getAllProfile() {
@@ -141,6 +220,10 @@ export class ProfilRechercheComponent implements OnInit {
   }
 
   changeScreen() {
+    if (this.update) {
+      this.update = false;
+      this.formGroup.reset();
+    }
     this.showAddProfileScreen = !this.showAddProfileScreen;
     this.page = 1;
   }
@@ -150,21 +233,29 @@ export class ProfilRechercheComponent implements OnInit {
     return d.getTime();
   }
 
-  onSearch(name: string, nationalite: string) {
-    if (name.trim() && !nationalite) {
+  onSearch(search: string, nationalite: string) {
+    if (search.trim() && !nationalite) {
       this.fichesPolice = this.data.filter(fp => {
         let nomPrenom = fp.ficp_nom + ' ' + fp.ficp_prenoms;
-        return nomPrenom.toLowerCase().includes(name.toLowerCase())
+        return nomPrenom.toLowerCase().includes(search.toLowerCase()) ||
+               fp.ficp_tel.split(' ').join('').includes(search) ||
+               fp.heb_designation.toLowerCase().includes(search.toLowerCase()) ||
+               fp.heb_ville.toLowerCase().includes(search.toLowerCase()) ||
+               fp.heb_commissariat.toLowerCase().includes(search.toLowerCase())
       })
     }
-    else if (name.trim() && nationalite) {
+    else if (search.trim() && nationalite) {
       this.fichesPolice = this.data.filter(fp => {
         let nomPrenom = fp.ficp_nom + ' ' + fp.ficp_prenoms;
-        return nomPrenom.toLowerCase().includes(name.toLowerCase()) && 
-          fp.ficp_nationnalite.toLowerCase().trim() == nationalite.toLowerCase().trim()
+        return nomPrenom.toLowerCase().includes(search.toLowerCase()) && 
+               fp.ficp_nationnalite.toLowerCase().trim() == nationalite.toLowerCase().trim() ||
+               fp.ficp_tel.split(' ').join('').includes(search) ||
+               fp.heb_designation.toLowerCase().includes(search.toLowerCase()) ||
+               fp.heb_ville.toLowerCase().includes(search.toLowerCase()) ||
+               fp.heb_commissariat.toLowerCase().includes(search.toLowerCase())
       })
     }
-    else if (!name.trim() && nationalite) {
+    else if (!search.trim() && nationalite) {
       this.fichesPolice = this.data.filter(fp => {
         return fp.ficp_nationnalite.toLowerCase().trim() == nationalite.toLowerCase().trim()
       })
