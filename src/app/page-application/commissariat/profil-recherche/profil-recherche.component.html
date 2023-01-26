@@ -160,16 +160,16 @@
                         [ngClass]="{'bg-success': getTime(fp.ficp_datedep) > getTime(nowDate), 'bg-danger': getTime(fp.ficp_datedep) < getTime(nowDate)}" 
                         style="width: 10px; height: 10px;"></div>
                         </td>
-                    <td class="py-2">{{ fp.ficp_nom }}</td>
-                    <td class="py-2">{{ fp.ficp_prenoms }}</td>
+                    <td class="py-2">{{ fp.ficp_nom | titlecase }}</td>
+                    <td class="py-2">{{ fp.ficp_prenoms | titlecase }}</td>
                     <td class="py-2">{{ fp.ficp_tel }}</td>
                     <td class="py-2">{{ fp.ficp_datearriv | date: 'dd/MM/yyyy' }}</td>
                     <td class="py-2">{{ fp.ficp_datedep | date: 'dd/MM/yyyy' }}</td>
                     <td class="py-2">{{ fp.ficp_nationnalite }}</td>
-                    <td class="py-2">{{ fp.heb_designation }}</td>
-                    <td class="py-2">{{ fp.heb_ville }}</td>
-                    <td class="py-2">{{ fp.heb_commissariat }}</td>
-                    <td class="py-2" align="right">
+                    <td class="py-2">{{ fp.heb_designation | titlecase }}</td>
+                    <td class="py-2">{{ fp.heb_ville | titlecase }}</td>
+                    <td class="py-2">{{ fp.heb_commissariat | titlecase }}</td>
+                    <td class="py-2" align="right" width="150">
                       <button class="btn btn-outline-info btn-sm">
                         <span class="typcn typcn-eye-outline"></span>
                         Voir plus

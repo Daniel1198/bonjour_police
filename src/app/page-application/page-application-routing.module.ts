@@ -4,8 +4,8 @@ import { AddCommissariatComponent } from './administration/add-commissariat/add-
 import { AddHebergeurComponent } from './administration/add-hebergeur/add-hebergeur.component';
 import { CommissariatComponent } from './administration/commissariat/commissariat.component';
 import { HebergementsComponent } from './administration/hebergements/hebergements.component';
+import { UtilisateursComponent } from './administration/utilisateurs/utilisateurs.component';
 import { VillesComponent } from './administration/villes/villes.component';
-import { CorrespondanceProfilComponent } from './commissariat/correspondance-profil/correspondance-profil.component';
 import { FicheHebergementComponent } from './commissariat/fiche-hebergement/fiche-hebergement.component';
 import { ProfilRechercheComponent } from './commissariat/profil-recherche/profil-recherche.component';
 import { DashboardCommissariatComponent } from './dashboard-commissariat/dashboard-commissariat.component';
@@ -26,13 +26,13 @@ const routes: Routes = [
   { path: 'commissariat/fiche-hebergement', component: FicheHebergementComponent },
   { path: 'commissariat/profil-recherche', component: ProfilRechercheComponent },
   { path: 'commissariat/dashboard', component: DashboardCommissariatComponent },
-  { path: 'commissariat/correspondance-profil', component: CorrespondanceProfilComponent },
 
   { path: 'administration/commissariats', component: CommissariatComponent },
   { path: 'administration/add-commissariat/:id', component: AddCommissariatComponent },
   { path: 'administration/villes', component: VillesComponent },
   { path: 'administration/hebergements', component: HebergementsComponent },
   { path: 'administration/add-hebergeur/:id', component: AddHebergeurComponent },
+  { path: 'administration/utilisateurs', component: UtilisateursComponent },
 
 ];
 

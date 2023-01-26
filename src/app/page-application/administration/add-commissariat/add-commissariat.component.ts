@@ -58,17 +58,17 @@ export class AddCommissariatComponent implements OnInit {
             tel: police.com_tel,
             cel: police.com_cel,
             commissaire: police.com_commissaire,
+            login: police.com_login,
           });
         }
       )
+      this.formGroup.controls['login'].disable();
     }
   }
 
   getAllCity() {
-    this.loading = true;
     this.villeService.listeVille().subscribe(
       response => {
-        this.loading = false;
         this.villes = response.results;
       }
     );
@@ -83,6 +83,7 @@ export class AddCommissariatComponent implements OnInit {
       tel: ['', Validators.required],
       cel: [''],
       commissaire: ['', Validators.required],
+      login: ['', Validators.required],
     });
   }
 
@@ -96,6 +97,7 @@ export class AddCommissariatComponent implements OnInit {
     formData.append('com_tel', this.formGroup.get('tel')?.value);
     formData.append('com_cel', this.formGroup.get('cel')?.value);
     formData.append('com_commissaire', this.formGroup.get('commissaire')?.value);
+    formData.append('com_login', this.formGroup.get('login')?.value);
 
     if (this.id == 0) {
       this.loading = true;
@@ -103,10 +105,14 @@ export class AddCommissariatComponent implements OnInit {
         response => {
           this.loading = false;
           if (response.statut) {
-            this.Toast.fire({
+            Swal.fire({
+              position: 'center',
               icon: 'success',
-              title: 'Commissariat ajouté avec succès'
-            })
+              title: 'Commissariat enregistré avec succès !',
+              html: 'Nom d\'utilisateur : <b>'+ this.formGroup.get('login')?.value +'</b><br>'+
+              'Mot de passe : <b>password</b>',
+              showConfirmButton: true
+            });
             this.formGroup.reset();
           }
           else {

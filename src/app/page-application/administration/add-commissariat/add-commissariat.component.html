@@ -49,14 +49,19 @@
             <input type="tel" id="phone" class="form-control" placeholder="+225 07 07 07 07 07" formControlName="tel">
           </div>
   
-          <div class="col-6 form-group">
+          <div class="col-4 form-group">
             <label for="cel"><strong>Cellulaire</strong></label>
             <input type="text" id="cel" class="form-control" formControlName="cel">
           </div>
   
-          <div class="col-6 form-group">
+          <div class="col-4 form-group">
             <label for="policeman"><strong>Commissaire <span class="text-danger">*</span></strong></label>
             <input type="text" id="policeman" class="form-control" formControlName="commissaire">
+          </div>
+
+          <div class="col-4 form-group">
+            <label for="username"><strong>Nom d'utilisateur <span class="text-danger">*</span></strong></label>
+            <input type="text" id="username" class="form-control" formControlName="login">
           </div>
 
           <div class="col-12 text-center" *ngIf="loading">

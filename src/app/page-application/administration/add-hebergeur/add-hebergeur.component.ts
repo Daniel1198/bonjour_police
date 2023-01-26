@@ -57,6 +57,7 @@ export class AddHebergeurComponent implements OnInit {
       this.hebergeurService.listeHebergeur().subscribe(
         response => {
           const hebergeur = response.results.find((hebergeur: any) => hebergeur.heb_id == this.id);
+          this.getPolicesByCity(hebergeur.heb_ville);
           this.formGroup.patchValue({
             type: hebergeur.heb_type,
             ville: hebergeur.heb_ville,

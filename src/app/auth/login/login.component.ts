@@ -65,11 +65,14 @@ export class LoginComponent implements OnInit {
         this.reponse = result;
       //   this.router.navigate(['/admin/dashboard']);
         this.profile = localStorage.getItem('prof_id');
-        if (this.profile == 2 || this.profile == 1) {
+        if (this.profile == 2) {
           window.location.href = '/admin/dashboard';
         }
-        else {
+        else if (this.profile == 3) {
           window.location.href = '/admin/commissariat/dashboard';
+        }
+        else if (this.profile == 1) {
+          window.location.href = '/admin/hebergement/fiche-police';
         }
         /* this.UtilPremiereCnx = JSON.parse(this.item);
         alert(this.reponse);
