@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FichePoliceService } from 'src/app/services/fiche-police/fiche-police.service';
+import { replaceAccent } from 'src/app/services/functions';
 import { NationaliteService } from 'src/app/services/nationalite.service';
 import { ProfilRechercheService } from 'src/app/services/profil-recherche/profil-recherche.service';
 import Swal from 'sweetalert2';
@@ -237,22 +238,22 @@ export class ProfilRechercheComponent implements OnInit {
     if (search.trim() && !nationalite) {
       this.fichesPolice = this.data.filter(fp => {
         let nomPrenom = fp.ficp_nom + ' ' + fp.ficp_prenoms;
-        return nomPrenom.toLowerCase().includes(search.toLowerCase()) ||
+        return replaceAccent(nomPrenom).includes(replaceAccent(search)) ||
                fp.ficp_tel.split(' ').join('').includes(search) ||
-               fp.heb_designation.toLowerCase().includes(search.toLowerCase()) ||
-               fp.heb_ville.toLowerCase().includes(search.toLowerCase()) ||
-               fp.heb_commissariat.toLowerCase().includes(search.toLowerCase())
+               replaceAccent(fp.heb_designation).includes(replaceAccent(search)) ||
+               replaceAccent(fp.heb_ville).includes(replaceAccent(search)) ||
+               replaceAccent(fp.heb_commissariat).includes(replaceAccent(search))
       })
     }
     else if (search.trim() && nationalite) {
       this.fichesPolice = this.data.filter(fp => {
         let nomPrenom = fp.ficp_nom + ' ' + fp.ficp_prenoms;
-        return nomPrenom.toLowerCase().includes(search.toLowerCase()) && 
+        return replaceAccent(nomPrenom).includes(replaceAccent(search)) && 
                fp.ficp_nationnalite.toLowerCase().trim() == nationalite.toLowerCase().trim() ||
                fp.ficp_tel.split(' ').join('').includes(search) ||
-               fp.heb_designation.toLowerCase().includes(search.toLowerCase()) ||
-               fp.heb_ville.toLowerCase().includes(search.toLowerCase()) ||
-               fp.heb_commissariat.toLowerCase().includes(search.toLowerCase())
+               replaceAccent(fp.heb_designation).includes(replaceAccent(search)) ||
+               replaceAccent(fp.heb_ville).includes(replaceAccent(search)) ||
+               replaceAccent(fp.heb_commissariat).includes(replaceAccent(search))
       })
     }
     else if (!search.trim() && nationalite) {

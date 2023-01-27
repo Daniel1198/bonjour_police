@@ -98,7 +98,7 @@
             <td class="py-2">{{ fp.ficp_datedep | date: 'dd/MM/yyyy' }}</td>
             <td class="py-2">{{ fp.ficp_nationnalite }}</td>
             <td class="py-2" align="right">
-              <button class="btn btn-outline-info btn-sm">
+              <button class="btn btn-outline-info btn-sm" [routerLink]="['/admin/hebergement/add-fiche-police', fp.ficp_id]">
                 <span class="typcn typcn-eye-outline"></span>
                 Voir plus
               </button>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommissariatService } from 'src/app/services/commissariat/commissariat.service';
+import { replaceAccent } from 'src/app/services/functions';
 import { VilleService } from 'src/app/services/ville/ville.service';
 import Swal from 'sweetalert2';
 
@@ -90,21 +91,21 @@ export class CommissariatComponent implements OnInit {
   onSearch(search: string, city: string) {
     if (city && search) {
       this.commissariats = this.data.filter(commissariat => 
-        (commissariat.com_commissariat.toLowerCase().includes(search.toLocaleLowerCase()) ||
-        commissariat.com_quartier.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        (replaceAccent(commissariat.com_commissariat).includes(replaceAccent(search)) ||
+        replaceAccent(commissariat.com_quartier).includes(replaceAccent(search)) ||
         commissariat.com_tel.split(' ').join('').toLowerCase().includes(search.toLocaleLowerCase()) ||
         commissariat.com_cel.split(' ').join('').toLowerCase().includes(search.toLocaleLowerCase()) ||
-        commissariat.com_commissaire.toLowerCase().includes(search.toLocaleLowerCase())) &&
+        replaceAccent(commissariat.com_commissaire).includes(replaceAccent(search))) &&
         commissariat.com_ville.toLowerCase() == city.toLocaleLowerCase()
       );
     }
     else if(search && !city) {
       this.commissariats = this.data.filter(commissariat => 
-        commissariat.com_commissariat.toLowerCase().includes(search.toLocaleLowerCase()) ||
-        commissariat.com_quartier.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        replaceAccent(commissariat.com_commissariat).includes(replaceAccent(search)) ||
+        replaceAccent(commissariat.com_quartier).includes(replaceAccent(search)) ||
         commissariat.com_tel.split(' ').join('').toLowerCase().includes(search.toLocaleLowerCase()) ||
         commissariat.com_cel.split(' ').join('').toLowerCase().includes(search.toLocaleLowerCase()) ||
-        commissariat.com_commissaire.toLowerCase().includes(search.toLocaleLowerCase())
+        replaceAccent(commissariat.com_commissaire).includes(replaceAccent(search))
       );
     }
     else if(!search && city) {

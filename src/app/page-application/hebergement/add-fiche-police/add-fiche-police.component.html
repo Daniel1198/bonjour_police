@@ -5,7 +5,7 @@
       </div>
   
       <div>
-        <button class="btn btn-danger btn-sm mat-elevation-z2" routerLink="/admin/hebergement/fiche-police">
+        <button class="btn btn-danger btn-sm mat-elevation-z2" (click)="onBack()">
           <span class="typcn typcn-times"></span>
           Fermer
         </button>
@@ -88,7 +88,7 @@
   
         <div class="row p-4" style="border-left: 1px solid #2b80ff; margin-left: 10px;" formGroupName="enfant">
           <div class="mb-4 text-muted">
-            <i><strong><u>NB :</u></strong> Seuls les enfants agés de moins de 15 ans peuvent figurer sur la fiche d'un adulte qui les accompagne.</i>
+            <i><strong><u>NB :</u></strong> Seuls les enfants agés de moins de 15 ans peuvent figurer sur la fiche d'un adulte qu'ils accompagnent.</i>
           </div>
           <div class="col-6 form-group">
             <label for="name"><strong>Nom (Name)</strong></label>
@@ -135,12 +135,14 @@
           <div class="m-auto text-center w-75">
             <button type="button" 
             class="btn btn-sm btn-danger w-25 mat-elevation-z2" 
-            routerLink="/admin/hebergement/fiche-police">
+            (click)="onBack()">
               <span class="typcn typcn-times"></span>
               Fermer
             </button>
   
-            <button type="submit" class="btn btn-sm btn-success ml-3 w-25 mat-elevation-z2" [disabled]="formGroup.invalid">
+            <button type="submit" class="btn btn-sm btn-success ml-3 w-25 mat-elevation-z2" 
+            [disabled]="formGroup.invalid"
+            *ngIf="id == 0">
               <span class="typcn typcn-database"></span>
               Enregistrer
             </button>

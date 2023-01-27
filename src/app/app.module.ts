@@ -11,12 +11,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { LoaderComponent } from './tpl/loader/loader.component';
+import { ErrorPageComponent } from './tpl/error-page/error-page.component';
 @NgModule({
   declarations: [
     AppComponent,
     LeftBarComponent,
     TopBarComponent,
-    FooterBarComponent
+    FooterBarComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

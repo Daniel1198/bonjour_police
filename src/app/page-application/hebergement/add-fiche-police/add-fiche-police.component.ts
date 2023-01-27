@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { FichePoliceService } from 'src/app/services/fiche-police/fiche-police.service';
 import { NationaliteService } from 'src/app/services/nationalite.service';
 import Swal from 'sweetalert2';
@@ -15,6 +16,7 @@ export class AddFichePoliceComponent implements OnInit {
   loading: boolean = false;
   hebId!: string;
   nationalites: any[] = [];
+  id!: number;
 
   Toast = Swal.mixin({
     toast: true,
@@ -32,16 +34,20 @@ export class AddFichePoliceComponent implements OnInit {
     private fichePoliceService: FichePoliceService,
     private formBuilder: FormBuilder,
     private nationaliteService: NationaliteService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.hebId = localStorage.getItem('user_heb_id')!;
+    this.id = +this.route.snapshot.paramMap.get('id')!;
     this.initForm();
     this.nationalites = this.nationaliteService.nationalites;
+    this.getOneFiche();
   }
 
   initForm() {
     this.formGroup = this.formBuilder.group({
+      id: [''],
       nom: ['', Validators.required],
       prenom: ['', Validators.required],
       dateNaissance: ['', Validators.required],
@@ -62,6 +68,40 @@ export class AddFichePoliceComponent implements OnInit {
         nationalite: ['']
       })
     });
+  }
+
+  getOneFiche() {
+    if (this.id > 0) {
+      this.fichePoliceService.listeFichePolice().subscribe(
+        response => {
+          const fp = response.results.find((fp: any) => fp.ficp_id == this.id);
+            this.formGroup.patchValue({
+              id: fp.ficp_id,
+              nom: fp.ficp_nom,
+              prenom: fp.ficp_prenoms,
+              dateNaissance: fp.ficp_datenaiss,
+              lieuNaissance: fp.ficp_lieunaiss,
+              domicile: fp.ficp_domicile,
+              nationalite: fp.ficp_nationnalite,
+              telephone: fp.ficp_tel,
+              email: fp.ficp_addresse,
+              dateArrivee: fp.ficp_datearriv,
+              dateDepart: fp.ficp_datedep,
+              enfant: this.formBuilder.group({
+                nom: fp.ficp_nomaccomp,
+                prenom: fp.ficp_prenaccomp,
+                dateNaissance: fp.ficp_datenaissaccomp,
+                lieuNaissance: fp.ficp_lieunaissaccomp,
+                domicile: fp.ficp_domicileaccomp,
+                nationalite: fp.ficp_nationnaliteaccomp
+              })
+            }
+          );
+        }
+      )
+
+      this.formGroup.disable()
+    }
   }
 
   onSubmit() {
@@ -105,6 +145,10 @@ export class AddFichePoliceComponent implements OnInit {
         }
       }
     );
+  }
+
+  onBack() {
+    history.back();
   }
 
 }

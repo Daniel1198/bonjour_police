@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
 
   { path: 'hebergement/fiche-police', component: FichePoliceComponent },
-  { path: 'hebergement/add-fiche-police', component: AddFichePoliceComponent },
+  { path: 'hebergement/add-fiche-police/:id', component: AddFichePoliceComponent },
 
   { path: 'commissariat/fiche-hebergement', component: FicheHebergementComponent },
   { path: 'commissariat/profil-recherche', component: ProfilRechercheComponent },

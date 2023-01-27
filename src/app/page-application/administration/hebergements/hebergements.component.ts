@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { replaceAccent } from 'src/app/services/functions';
 import { HebergeurService } from 'src/app/services/hebergeur/hebergeur.service';
 import { VilleService } from 'src/app/services/ville/ville.service';
 import Swal from 'sweetalert2';
@@ -53,18 +54,18 @@ export class HebergementsComponent implements OnInit {
   onSearch(search: string, city: string) {
     if (city && search) {
       this.hebergeurs = this.data.filter(hebergeur => 
-        (hebergeur.heb_designation.toLowerCase().includes(search.toLocaleLowerCase()) ||
-        hebergeur.heb_type.toLowerCase().includes(search.toLocaleLowerCase()) ||
-        hebergeur.heb_commissariat.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        (replaceAccent(hebergeur.heb_designation).includes(replaceAccent(search)) ||
+        replaceAccent(hebergeur.heb_type).includes(replaceAccent(search)) ||
+        replaceAccent(hebergeur.heb_commissariat).includes(replaceAccent(search)) ||
         hebergeur.heb_tel.split(' ').join('').toLowerCase().includes(search.toLocaleLowerCase())) &&
         hebergeur.heb_ville.toLowerCase() == city.toLocaleLowerCase()
       );
     }
     else if(search && !city) {
       this.hebergeurs = this.data.filter(hebergeur => 
-        hebergeur.heb_designation.toLowerCase().includes(search.toLocaleLowerCase()) ||
-        hebergeur.heb_type.toLowerCase().includes(search.toLocaleLowerCase()) ||
-        hebergeur.heb_commissariat.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        replaceAccent(hebergeur.heb_designation).includes(replaceAccent(search)) ||
+        replaceAccent(hebergeur.heb_type).includes(replaceAccent(search)) ||
+        replaceAccent(hebergeur.heb_commissariat).includes(replaceAccent(search)) ||
         hebergeur.heb_tel.split(' ').join('').toLowerCase().includes(search.toLocaleLowerCase())
       );
     }

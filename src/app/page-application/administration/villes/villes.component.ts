@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { replaceAccent } from 'src/app/services/functions';
 import { VilleService } from 'src/app/services/ville/ville.service';
 import Swal from 'sweetalert2';
 
@@ -169,7 +170,7 @@ export class VillesComponent implements OnInit {
   onSearch(search: string) {
     if (search) {
       this.villes = this.data.filter(ville => 
-        ville.vil_ville.toLowerCase().includes(search.toLocaleLowerCase())
+        replaceAccent(ville.vil_ville).includes(replaceAccent(search))
       );
     }
     else {
