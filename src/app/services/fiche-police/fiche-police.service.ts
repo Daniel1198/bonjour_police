@@ -28,4 +28,16 @@ export class FichePoliceService {
   listeFichePolice(): Observable<any> {
     return this.httpClient.get<any>(this.urlG + '/fiche_police/liste_fiche_police.php');
   }
+
+  fichePoliceParNationalite(hebId: number): Observable<any> {
+    return this.httpClient.get<any>(this.urlG + '/fiche_police/tb_heb_fiche_policeNationnalite.php?ficp_heb_id=' + hebId);
+  }
+
+  fichePoliceRecente(hebId: number): Observable<any> {
+    return this.httpClient.get<any>(this.urlG + '/fiche_police/tb_heb_fiche_police_recherche.php?ficp_heb_id=' + hebId);
+  }
+
+  fichePoliceVisite(hebId: number, annee: string): Observable<any> {
+    return this.httpClient.get<any>(this.urlG + '/fiche_police/tb_heb_fiche_policeVisite.php?ficp_heb_id=' + hebId + '&annee=' + annee);
+  }
 }

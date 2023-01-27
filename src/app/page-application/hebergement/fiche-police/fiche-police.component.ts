@@ -74,6 +74,21 @@ export class FichePoliceComponent implements OnInit {
     )
   }
 
+  onPrint() {
+    const printSection = document.getElementById('print-section')?.innerHTML;
+
+    const popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto'); 
+    popupWin?.document.open(); 
+    popupWin?.document.write(`
+      <html> 
+        <head> 
+        <title>Print tab</title> 
+        </head> 
+        <body onload="window.print(); window.close()"> ${printSection} </body> </html> ` ); 
+    popupWin?.document.close();
+
+  }
+
   changeSize(value: string) {
     this.tableSize = +value;
   }

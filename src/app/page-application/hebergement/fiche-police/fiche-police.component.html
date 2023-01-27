@@ -10,9 +10,9 @@
           <span class="typcn typcn-plus"></span>
           Nouveau
         </button>
-        <button class="btn btn-success btn-sm ml-3 mat-elevation-z2">
-          <span class="typcn typcn-export"></span>
-          Exporter
+        <button class="btn btn-danger btn-sm ml-3 mat-elevation-z2" (click)="onPrint()">
+          <span class="typcn typcn-printer"></span>
+          Imprimer
         </button>
       </div>
     </div>
@@ -72,10 +72,10 @@
     <div class="text-center" *ngIf="loading">
       <loader></loader>
     </div>
-    <div class="bg-white mt-3 rounded mat-elevation-z3 mb-3">
+    <div class="bg-white mt-3 rounded mat-elevation-z3 mb-3" id="print-section">
       <table class="table table-striped">
         <thead>
-          <tr class="text-white" style="background-color: #1b1b29;">
+          <tr class="text-white" style="background-color: #242b35;">
             <th class="py-3"></th>
             <th class="py-3">Nom.</th>
             <th class="py-3">Prénom(s).</th>

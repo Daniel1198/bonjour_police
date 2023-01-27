@@ -9,50 +9,48 @@
   </div>
 
   <div class="p-3 row">
-    <div class="col-3">
-      <p style="font-family: 'sans-serif'; font-size: 20px; margin-top: 12px;" class="text-black">Statistiques par nationalité</p>
+    <div class="col-2">
+      <p style="font-family: 'sans-serif'; font-size: 20px; margin-top: 12px;" class="text-black">Nationalités</p>
       <div>
         <table class="w-100 table mt-3">
           <tbody>
-            <tr *ngFor="let n of [].constructor(10)">
-              <td style="width: 5%;" class="p-3">■</td>
-              <td class="w-50 p-3">Camérounaise</td>
-              <td align="right" style="opacity: .5; width: 30%;" class="p-3"><small>18.0%</small></td>
+            <tr *ngFor="let data of fichesParNationalite">
+              <td class="w-50 p-3">{{ data.ficp_nationnalite }}</td>
+              <td align="right" style="opacity: .5; width: 30%;" class="p-3"><small>{{ data.nbre }}</small></td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="w-100 text-center mt-3">
+      <!-- <div class="w-100 text-center mt-3">
         <button class="btn btn-sm btn-outline-info">Voir plus</button>
-      </div>
+      </div> -->
     </div>
 
     <div class="col-6">
       <highcharts-chart
-        class="w3-border h-100"
+        class="w3-border"
         [Highcharts] = "highcharts" 
         [options] = "chartOptionsHistogram" 
         style = "width: 100%; display: block;">
       </highcharts-chart>
     </div>
 
-    <div class="col-3">
+    <div class="col-4 h-100">
       <p style="font-family: 'sans-serif'; font-size: 20px; margin-top: 12px;" class="text-black">Fiches polices récentes</p>
       <div>
         <table class="w-100 table mt-3">
           <tbody>
-            <tr *ngFor="let n of [].constructor(10)">
-              <td style="width: 5%;" class="p-2">■</td>
-              <td class="w-50 p-3">John Doe</td>
-              <td align="right" style="opacity: .5; width: 40%;" class="p-3"><small>Ven. 13 Jan 2023</small></td>
+            <tr *ngFor="let fpr of fichesPolicesRecentes">
+              <td class="w-50 p-3">{{ (fpr.ficp_nom + ' ' + fpr.ficp_prenoms) | titlecase }}</td>
+              <td align="right" style="opacity: .5; width: 45%;" class="p-3"><small>{{ fpr.ficp_datearriv | date: 'EEE. d MMM y': undefined : 'fr' | titlecase }}</small></td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div class="w-100 text-center mt-3">
+      <!-- <div class="w-100 text-center mt-3">
         <button class="btn btn-sm btn-outline-info">Voir plus</button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

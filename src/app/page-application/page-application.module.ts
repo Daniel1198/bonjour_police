@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { LOCALE_ID, NgModule } from '@angular/core';
+import { CommonModule, registerLocaleData } from '@angular/common';
 
 import { PageApplicationRoutingModule } from './page-application-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -21,8 +21,9 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { LoaderModule } from '../tpl/loader/loader.module';
 import { AddHebergeurComponent } from './administration/add-hebergeur/add-hebergeur.component';
 import { UtilisateursComponent } from './administration/utilisateurs/utilisateurs.component';
+import localeFr from '@angular/common/locales/fr';
 
-
+registerLocaleData(localeFr, 'fr');
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -49,6 +50,7 @@ import { UtilisateursComponent } from './administration/utilisateurs/utilisateur
     HighchartsChartModule,
     SweetAlert2Module,
     LoaderModule
-  ]
+  ],
+  providers: [{provide: LOCALE_ID, useValue: 'fr' }]
 })
 export class PageApplicationModule { }
