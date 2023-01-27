@@ -4,14 +4,94 @@
           <h4 class="mb-0 text-info"><b>{{ "Administration" | uppercase }}</b></h4>
           <p class="m-0">Utilisateurs</p>
         </div>
-    
-        <div>
-          <button class="btn btn-info btn-sm mat-elevation-z2" routerLink="/admin/administration/add-hebergeur/0">
-            <span class="typcn typcn-plus"></span>
-            Nouveau
-          </button>
-        </div>
     </div>
+    <div class="p-2 border mt-3 rounded w3-animate-right">
+        <div class="border-bottom text-warning p-2 mb-3">
+            <b>Nouvel utilisateur</b>
+        </div>
 
-    
+        <form class="px-5 row">
+            <div class="col-4 form-group">
+                <label for="name" class="form-label font-weight-bold">
+                    Nom d'utilisateur <span class="text-danger">*</span>
+                </label>
+                <input type="text" id="name" class="form-control" formControlName="nomPrenom">
+            </div>
+
+            <div class="col-4 form-group">
+                <label for="name" class="form-label font-weight-bold">
+                    Mot de passe <span class="text-danger">*</span>
+                </label>
+                <input type="password" id="name" class="form-control" formControlName="nomPrenom">
+            </div>
+
+            <div class="col-4 form-group">
+                <label for="name" class="form-label font-weight-bold">
+                    Confirmer le mot de passe <span class="text-danger">*</span>
+                </label>
+                <input type="password" id="name" class="form-control" formControlName="nomPrenom">
+            </div>
+
+            <div class="col-12 mb-3 text-right">
+                <button type="button" class="btn btn-danger mr-3">
+                    Annuler
+                </button>
+                <button class="btn btn-success">
+                    Enregistrer
+                </button>
+            </div>
+        </form>
+        </div>
+        <div class="text-center" *ngIf="loading">
+            <loader></loader>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr class="text-white" style="background-color: #1b1b29;">
+                    <th class="py-3">Nom d'utilisateur.</th>
+                    <th class="py-3"></th>
+                </tr>
+            </thead>
+            <tbody *ngIf="!loading && utilisateurs.length == 0">
+                <tr>
+                    <td colspan="2" align="center">Aucune donnée.</td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="!loading && utilisateurs.length > 0">
+                <tr *ngFor="let utilisateur of utilisateurs | paginate
+      : {
+          itemsPerPage: tableSize,
+          currentPage: page,
+          totalItems: count
+        };
+        let i = index">
+                    <td class="py-2">{{ utilisateur.prf_nomprenoms }}</td>
+                    <td class="py-2" align="right">
+                        <button class="btn btn-outline-info btn-sm" (click)="onUpdate(utilisateur)">
+                            <span class="typcn typcn-edit"></span>
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm ml-3" (click)="onDelete(utilisateur.prf_id)">
+                            <span class="typcn typcn-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="px-3 mt-2 d-flex justify-content-end align-items-center" style="font-size: small;"
+            *ngIf="utilisateurs.length > 0">
+            <p>Total : [ {{ utilisateurs.length }} ]</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <div class="d-flex mr-3">
+                Enregistrements par page :&nbsp;&nbsp;
+                <select id="items-per-page" #value class="mr-3 mb-3" (change)="changeSize(value.value)">
+                    <option *ngFor="let size of tableSizes" [value]="size">{{ size }}</option>
+                </select>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <pagination-controls previousLabel="Précédent" nextLabel="Suivant"
+                    (pageChange)="onTableDataChange($event)">
+                </pagination-controls>
+            </div>
+        </div>
 </div>

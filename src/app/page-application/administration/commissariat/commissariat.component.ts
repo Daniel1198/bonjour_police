@@ -92,8 +92,8 @@ export class CommissariatComponent implements OnInit {
       this.commissariats = this.data.filter(commissariat => 
         (commissariat.com_commissariat.toLowerCase().includes(search.toLocaleLowerCase()) ||
         commissariat.com_quartier.toLowerCase().includes(search.toLocaleLowerCase()) ||
-        commissariat.com_tel.toLowerCase().includes(search.toLocaleLowerCase()) ||
-        commissariat.com_cel.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        commissariat.com_tel.split(' ').join('').toLowerCase().includes(search.toLocaleLowerCase()) ||
+        commissariat.com_cel.split(' ').join('').toLowerCase().includes(search.toLocaleLowerCase()) ||
         commissariat.com_commissaire.toLowerCase().includes(search.toLocaleLowerCase())) &&
         commissariat.com_ville.toLowerCase() == city.toLocaleLowerCase()
       );
@@ -102,8 +102,8 @@ export class CommissariatComponent implements OnInit {
       this.commissariats = this.data.filter(commissariat => 
         commissariat.com_commissariat.toLowerCase().includes(search.toLocaleLowerCase()) ||
         commissariat.com_quartier.toLowerCase().includes(search.toLocaleLowerCase()) ||
-        commissariat.com_tel.toLowerCase().includes(search.toLocaleLowerCase()) ||
-        commissariat.com_cel.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        commissariat.com_tel.split(' ').join('').toLowerCase().includes(search.toLocaleLowerCase()) ||
+        commissariat.com_cel.split(' ').join('').toLowerCase().includes(search.toLocaleLowerCase()) ||
         commissariat.com_commissaire.toLowerCase().includes(search.toLocaleLowerCase())
       );
     }

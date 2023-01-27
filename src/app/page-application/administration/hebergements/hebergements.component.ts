@@ -56,7 +56,7 @@ export class HebergementsComponent implements OnInit {
         (hebergeur.heb_designation.toLowerCase().includes(search.toLocaleLowerCase()) ||
         hebergeur.heb_type.toLowerCase().includes(search.toLocaleLowerCase()) ||
         hebergeur.heb_commissariat.toLowerCase().includes(search.toLocaleLowerCase()) ||
-        hebergeur.heb_tel.toLowerCase().includes(search.toLocaleLowerCase())) &&
+        hebergeur.heb_tel.split(' ').join('').toLowerCase().includes(search.toLocaleLowerCase())) &&
         hebergeur.heb_ville.toLowerCase() == city.toLocaleLowerCase()
       );
     }
@@ -65,7 +65,7 @@ export class HebergementsComponent implements OnInit {
         hebergeur.heb_designation.toLowerCase().includes(search.toLocaleLowerCase()) ||
         hebergeur.heb_type.toLowerCase().includes(search.toLocaleLowerCase()) ||
         hebergeur.heb_commissariat.toLowerCase().includes(search.toLocaleLowerCase()) ||
-        hebergeur.heb_tel.toLowerCase().includes(search.toLocaleLowerCase())
+        hebergeur.heb_tel.split(' ').join('').toLowerCase().includes(search.toLocaleLowerCase())
       );
     }
     else if(!search && city) {
