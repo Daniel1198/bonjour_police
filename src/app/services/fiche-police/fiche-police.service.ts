@@ -40,4 +40,8 @@ export class FichePoliceService {
   fichePoliceVisite(hebId: number, annee: string): Observable<any> {
     return this.httpClient.get<any>(this.urlG + '/fiche_police/tb_heb_fiche_policeVisite.php?ficp_heb_id=' + hebId + '&annee=' + annee);
   }
+
+  comFichePoliceParNationalite(commissariat: string): Observable<any> {
+    return this.httpClient.get<any>(this.urlG + '/fiche_police/tb_com_fiche_policeNationnalite.php?heb_commissariat=' + commissariat);
+  }
 }

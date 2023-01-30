@@ -28,6 +28,10 @@ export class HebergeurService {
     return this.httpClient.get<any>(this.urlG + '/hebergeur/liste_par_ville.php?heb_ville=' + ville);
   }
 
+  hebergeurParCommissariat(commissariat: string): Observable<any> {
+    return this.httpClient.get<any>(this.urlG + '/commissariat/liste_heb_par_com.php?heb_commissariat=' + commissariat);
+  }
+
   listeHebergeur(): Observable<any> {
     return this.httpClient.get<any>(this.urlG + '/hebergeur/liste.php');
   }

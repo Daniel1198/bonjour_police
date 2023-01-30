@@ -18,7 +18,7 @@ export class FicheHebergementComponent implements OnInit {
 
   fichesPolice: any[] = [];
   hebergeurs: any[] = [];
-  ville: any;
+  commissariat: any;
   profile: any;
   
   constructor(
@@ -28,7 +28,7 @@ export class FicheHebergementComponent implements OnInit {
 
   ngOnInit(): void {
     this.profile = localStorage.getItem('prof_id')!;
-    this.ville = localStorage.getItem('user_heb_ville');
+    this.commissariat = localStorage.getItem('user_heb_commissariat');
     const day = this.nowDate.getDate() < 10 ? '0' + this.nowDate.getDate() : this.nowDate.getDate();
     const month = this.nowDate.getMonth() < 10 ? '0' + this.nowDate.getMonth() + 1 : this.nowDate.getMonth() + 1;
     const date = this.nowDate.getFullYear() + '-' + month + '-' + day;
@@ -62,7 +62,7 @@ export class FicheHebergementComponent implements OnInit {
       );
     }
     else {
-      this.hebergeurService.hebergeurParVille(this.ville).subscribe(
+      this.hebergeurService.hebergeurParCommissariat(this.commissariat).subscribe(
         response => {
           this.hebergeurs = response.results;
         }

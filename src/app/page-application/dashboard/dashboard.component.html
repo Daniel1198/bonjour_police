@@ -31,7 +31,7 @@
         class="w3-border"
         [Highcharts] = "highcharts" 
         [options] = "chartOptionsHistogram" 
-        style = "width: 100%; display: block;">
+        style = "width: 100%; height: 500px; display: block;">
       </highcharts-chart>
     </div>
 
@@ -41,7 +41,7 @@
         <table class="w-100 table mt-3">
           <tbody>
             <tr *ngFor="let fpr of fichesPolicesRecentes">
-              <td class="w-50 p-3">{{ (fpr.ficp_nom + ' ' + fpr.ficp_prenoms) | titlecase }}</td>
+              <td class="w-50 p-3">📝 &nbsp;&nbsp; {{ (fpr.ficp_nom + ' ' + fpr.ficp_prenoms) | titlecase }}</td>
               <td align="right" style="opacity: .5; width: 45%;" class="p-3"><small>{{ fpr.ficp_datearriv | date: 'EEE. d MMM y': undefined : 'fr' | titlecase }}</small></td>
             </tr>
           </tbody>
