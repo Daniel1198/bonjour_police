@@ -1,22 +1,22 @@
 <div style="height: 100vh;" class="d-flex align-items-center justify-content-center">
-  <div class="row bg-white w3-animate-right w-100 h-100">
-    <div class="col-4 d-flex align-items-center border-right">
+  <div class="row w3-animate-right w-100 h-100">
+    <div class="col-4 bg-light mat-elevation-z8 d-flex align-items-center">
       <div class="w-100 text-center py-5">
         <img src="assets/images/logo-connect-bp.png" alt="logo" width="150">
   
-        <img src="assets/images/11235583_10811.jpg" alt="" class="w-100 mt-5 mb-5">
+        <img src="assets/images/11235583_10811.png" alt="" class="w-100 mt-5 mb-5">
         <div class="text-center m-auto">
           J'ai déjà un compte ?
           <a routerLink="/auth/login" class="text-warning">Connexion</a>
         </div>
       </div>
     </div>
-    <div class="col-8 h-100">
+    <div class="col-8 h-100" id="content">
       <div class="p-3 text-white text-center" style="background-color: rgb(80, 156, 255);">
         <strong>Inscription hébergeur</strong>
       </div>
       <form class="row px-5 pt-5 mb-3 overflow-auto" style="height: 90%;" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-        <div class="col-12 mb-5 text-center text-muted">
+        <div class="col-12 mb-5 text-center text-white">
           <strong>NB :</strong> tous les champs marqués par <strong class="text-danger">*</strong> sont obligatoires.
         </div>
         <div class="col-7">

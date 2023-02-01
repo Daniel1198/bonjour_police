@@ -20,3 +20,8 @@ label {
 ::-webkit-scrollbar-thumb {
     background-color: #7dc4ffc7;
 }
+
+input, select, textarea {
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.404);
+}

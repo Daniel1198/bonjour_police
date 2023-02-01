@@ -1,5 +1,5 @@
 <div>
-    <div class="header bg-light py-2 px-4 d-flex justify-content-between align-items-center rounded">
+    <div class="header bg-white py-2 px-4 d-flex justify-content-between align-items-center rounded">
         <div>
             <h4 class="mb-0 text-info"><b>{{ "Commissariat de police" | uppercase }}</b></h4>
             <p class="m-0">Profil recherché</p>
@@ -20,8 +20,8 @@
         </div>
     </div>
 
-    <div class="p-2 border mt-3 rounded w3-animate-left" *ngIf="!showAddProfileScreen">
-        <div class="border-bottom text-danger p-2 mb-3">
+    <div class="p-2 border border-dark mt-3 rounded w3-animate-left" *ngIf="!showAddProfileScreen">
+        <div class="border-bottom border-dark text-danger p-2 mb-3">
             <b>Critères de recherche</b>
         </div>
 
@@ -50,8 +50,8 @@
         </div>
     </div>
 
-    <div class="p-2 border mt-3 rounded w3-animate-right" *ngIf="showAddProfileScreen">
-        <div class="border-bottom text-warning p-2 mb-3">
+    <div class="p-2 border border-dark mt-3 rounded w3-animate-right" *ngIf="showAddProfileScreen">
+        <div class="border-bottom border-dark text-warning p-2 mb-3">
             <b>Nouvelle alerte</b>
         </div>
 
@@ -94,7 +94,7 @@
                 <div class="input-group">
                     <input type="number" id="minage" class="form-control" value="0" formControlName="ageMin" max="100" min="0">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">ans</div>
+                        <div class="input-group-text bg-white">ans</div>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                 <div class="input-group">
                     <input type="number" id="maxage" class="form-control" value="100" formControlName="ageMax" max="100" min="0">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">ans</div>
+                        <div class="input-group-text bg-white">ans</div>
                     </div>
                 </div>
             </div>
@@ -124,7 +124,7 @@
         <div class="text-center" *ngIf="loading">
             <loader></loader>
         </div>
-        <div class="bg-white mt-3 rounded mat-elevation-z3 mb-3">
+        <div class="bg-white mt-3 rounded mb-3">
             <table class="table table-striped" *ngIf="!showAddProfileScreen">
                 <thead>
                   <tr class="text-white" style="background-color: #242b35;">

@@ -1,12 +1,12 @@
 <div>
-    <div class="header bg-light py-2 px-4 d-flex justify-content-between align-items-center rounded">
+    <div class="header bg-white py-2 px-4 d-flex justify-content-between align-items-center rounded">
         <div>
           <h4 class="mb-0 text-info"><b>{{ "Administration" | uppercase }}</b></h4>
           <p class="m-0">Utilisateurs</p>
         </div>
     </div>
-    <div class="p-2 border mt-3 rounded w3-animate-right">
-        <div class="border-bottom text-warning p-2 mb-3">
+    <div class="p-2 border border-dark mt-3 rounded w3-animate-right">
+        <div class="border-bottom border-dark text-warning p-2 mb-3">
             <b>Nouvel utilisateur</b>
         </div>
 
@@ -45,7 +45,7 @@
         <div class="text-center" *ngIf="loading">
             <loader></loader>
         </div>
-        <table class="table table-striped">
+        <table class="table table-striped mt-3">
             <thead>
                 <tr class="text-white" style="background-color: #242b35;">
                     <th class="py-3">Nom d'utilisateur.</th>
